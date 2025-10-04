@@ -1,13 +1,19 @@
 package com.arklok.nutra;
 
-import org.springframework.boot.SpringApplication;
+import javafx.application.Application;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
-public class NutraApplication {
+public class NutraApplication{
+    static void main(String[] args) {
+        ConfigurableApplicationContext ctx = new SpringApplicationBuilder(NutraFxApplication.class)
+                .headless(false)
+                .run(args);
 
-    public static void main(String[] args) {
-        SpringApplication.run(NutraFxApplication.class, args);
+        Application.launch(NutraFxApplication.class, args);
+
+        ctx.close();
     }
-
 }

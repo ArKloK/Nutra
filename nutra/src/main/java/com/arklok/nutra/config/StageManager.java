@@ -2,8 +2,6 @@ package com.arklok.nutra.config;
 
 import com.arklok.nutra.event.SceneResizeEvent;
 import javafx.stage.Stage;
-import org.springframework.stereotype.Component;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,7 +11,6 @@ import org.springframework.context.ApplicationEventPublisher;
 import java.io.IOException;
 import java.util.Objects;
 
-@Component
 public class StageManager {
     private final Stage primaryStage;
     private final FxmlLoader fxmlLoader;
@@ -22,12 +19,11 @@ public class StageManager {
 
     public StageManager(FxmlLoader fxmlLoader,
                         Stage primaryStage,
-                        String applicationTitle,
                         ApplicationEventPublisher eventPublisher) {
-        this.primaryStage = primaryStage;
-        this.fxmlLoader = fxmlLoader;
-        this.applicationTitle = applicationTitle;
-        this.eventPublisher = eventPublisher;
+        this.primaryStage = Objects.requireNonNull(primaryStage, "primaryStage cannot be null");
+        this.fxmlLoader = Objects.requireNonNull(fxmlLoader, "fxmlLoader cannot be null");
+        this.eventPublisher = Objects.requireNonNull(eventPublisher, "eventPublisher cannot be null");
+        this.applicationTitle = "Nutra - Gestión de Clientes";
     }
 
     public void switchScene(final FxmlView view) {
@@ -39,47 +35,42 @@ public class StageManager {
 
         Parent rootNode = loadRootNode(view.getFxmlPath());
 
-
         Scene scene = new Scene(rootNode);
-        String stylesheet = Objects.requireNonNull(getClass()
-                        .getResource("/styles/styles.css"))
-                .toExternalForm();
+
+        String stylesheet = Objects.requireNonNull(
+                getClass().getResource("/styles/styles.css"),
+                "styles.css not found in /styles/"
+        ).toExternalForm();
 
         scene.getStylesheets().add(stylesheet);
 
-        scene.widthProperty().addListener(new ChangeListener<>() {
-            @Override
-            public void changed(
-                    ObservableValue<? extends Number> observableValue,
-                    Number oldSceneWidth,
-                    Number newSceneWidth) {
-
-                eventPublisher.publishEvent(new SceneResizeEvent(this, newSceneWidth));
-
-            }
-        });
+        scene.widthProperty().addListener((ObservableValue<? extends Number> _,
+                                           Number _,
+                                           Number newSceneWidth) ->
+                eventPublisher.publishEvent(new SceneResizeEvent(this, newSceneWidth))
+        );
 
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     public void switchToNextScene(final FxmlView view) {
-
         Parent rootNode = loadRootNode(view.getFxmlPath());
-        primaryStage.getScene().setRoot(rootNode);
-
+        if (primaryStage.getScene() == null) {
+            primaryStage.setScene(new Scene(rootNode));
+        } else {
+            primaryStage.getScene().setRoot(rootNode);
+        }
         primaryStage.show();
     }
 
-
     private Parent loadRootNode(String fxmlPath) {
-        Parent rootNode;
         try {
-            rootNode = fxmlLoader.load(fxmlPath);
+            Parent rootNode = fxmlLoader.load(fxmlPath);
+            return Objects.requireNonNull(rootNode, "loaded FXML is null: " + fxmlPath);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error loading FXML: " + fxmlPath, e);
         }
-        return rootNode;
     }
 
     public void switchToFullScreenMode() {

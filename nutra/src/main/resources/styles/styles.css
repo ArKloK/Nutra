@@ -1,0 +1,10 @@
+/* Estilos básicos para la aplicación Nutra */
+.root {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 14px;
+}
+
+/* Estilos para el contenedor principal */
+.anchor-pane {
+    -fx-background-color: #f5f5f5;
+}

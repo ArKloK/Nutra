@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.net.URL;
 
 @Component
 public class FxmlLoader {
@@ -18,7 +19,13 @@ public class FxmlLoader {
     public Parent load(String fxmlPath) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setControllerFactory(context::getBean);
-        loader.setLocation(getClass().getResource(fxmlPath));
+
+        URL resource = getClass().getResource(fxmlPath);
+        if (resource == null) {
+            throw new IllegalArgumentException("FXML not found: " + fxmlPath);
+        }
+        loader.setLocation(resource);
+
         return loader.load();
     }
 }
