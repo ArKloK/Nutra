@@ -4,7 +4,44 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6bbdb9e2-d8ee-48bf-9f1f-98eb2df116a4" name="Changes" comment="First commit. Setting up basic structures." />
+    <list default="true" id="dbc76a8a-6e3f-4cd6-b762-467a45439b9b" name="Changes" comment="App architecture mounted. Created load, home and consultation view. Created all models and persisted in the DB. Created controllers for the views.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/CHANGELOG.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/NutraApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/NutraFxApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/config/DataSourceConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/config/FxmlLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/config/FxmlView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/config/PrimaryStageHolder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/config/StageManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/constants/UIConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/controllers/ConsultationController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/controllers/HomeController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/controllers/LoadController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/event/SceneResizeEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/helpers/UIHelper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/models/Consultation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/models/Ingredient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/models/Patient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/models/Recipe.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/models/RecipeIngredient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/resources/fxml/consultation.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/resources/fxml/home.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/resources/fxml/load.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/resources/styles/changelog.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/resources/styles/load.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/main/resources/styles/styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nutra/src/test/java/com/arklok/nutra/NutraApplicationTests.java" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,11 +50,17 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -29,7 +72,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/ArKloK/Nutra.git&quot;,
-    &quot;accountId&quot;: &quot;f5dc89e4-c30d-484f-b992-d4a1977c70f8&quot;
+    &quot;accountId&quot;: &quot;9c90d62a-8416-4522-ac63-94f13cf8e505&quot;
   }
 }</component>
   <component name="MavenImportPreferences">
@@ -43,10 +86,9 @@
     <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 5
+  &quot;associatedIndex&quot;: 3
 }</component>
-  <component name="ProjectId" id="2zErPPgoHNkFNxSovtC3f66Xysw" />
+  <component name="ProjectId" id="33Nbvls7HXNAsGnlzrN9DClm6ri" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -54,36 +96,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;Spring Boot.NutraApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Documentos/AppAurora/nutra&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Notification.DisplayName-DoNotAsk-DatabaseConfigFileWatcher.found": "New/updated database configurations found",
+    "Notification.DoNotAsk-DatabaseConfigFileWatcher.found": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHELLCHECK.PATH": "C:\\Users\\ccama\\AppData\\Roaming\\JetBrains\\IntelliJIdea2025.2\\plugins\\Shell Script\\shellcheck.exe",
+    "Spring Boot.NutraApplication.executor": "Run",
+    "git-widget-placeholder": "develop",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "E:/Documentos/AppAurora/Nutra/nutra",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="NutraApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="nutra" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.arklok.nutra.NutraApplication" />
-      <option name="VM_PARAMETERS" value="-Djava.rmi.server.hostname=localhost" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -92,49 +138,72 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26199.169" />
-        <option value="bundled-js-predefined-d6986cc7102b-9c94529fcfe0-JavaScript-IU-252.26199.169" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.27397.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.27397.103" />
       </set>
     </attachedChunks>
   </component>
-  <component name="StructureViewState">
-    <option name="selectedTab" value="Logical" />
-  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="6bbdb9e2-d8ee-48bf-9f1f-98eb2df116a4" name="Changes" comment="" />
-      <created>1751307049720</created>
+      <changelist id="dbc76a8a-6e3f-4cd6-b762-467a45439b9b" name="Changes" comment="" />
+      <created>1759160709433</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1751307049720</updated>
-      <workItem from="1751307052008" duration="876000" />
-      <workItem from="1751392217889" duration="1509000" />
-      <workItem from="1751555314693" duration="68000" />
-      <workItem from="1751555412286" duration="3877000" />
-      <workItem from="1753112033417" duration="239000" />
-      <workItem from="1753112302824" duration="3798000" />
-      <workItem from="1753116392968" duration="2253000" />
-      <workItem from="1759159303998" duration="57000" />
-      <workItem from="1759159366966" duration="221000" />
-      <workItem from="1759159598767" duration="1105000" />
+      <updated>1759160709433</updated>
+      <workItem from="1759160710513" duration="1303000" />
+      <workItem from="1759568249862" duration="642000" />
+      <workItem from="1759570256039" duration="7162000" />
+      <workItem from="1759577454158" duration="398000" />
+      <workItem from="1759577903451" duration="4371000" />
+      <workItem from="1759655598292" duration="576000" />
+      <workItem from="1759656183493" duration="1242000" />
+      <workItem from="1760370230046" duration="1376000" />
+      <workItem from="1760457592836" duration="203000" />
+      <workItem from="1760548232435" duration="64000" />
+      <workItem from="1760630316257" duration="2021000" />
+      <workItem from="1760729871647" duration="281000" />
+      <workItem from="1760972609764" duration="3648000" />
+      <workItem from="1761059546187" duration="2156000" />
+      <workItem from="1761145950131" duration="2000000" />
+      <workItem from="1761150772460" duration="1605000" />
+      <workItem from="1761582305742" duration="65000" />
+      <workItem from="1761582430695" duration="6681000" />
+      <workItem from="1761671054430" duration="2583000" />
+      <workItem from="1761844113291" duration="3718000" />
     </task>
-    <task id="LOCAL-00001" summary="First commit. Setting up basic structures.">
+    <task id="LOCAL-00001" summary="Setting up application">
       <option name="closed" value="true" />
-      <created>1753116525857</created>
+      <created>1759573308359</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1753116525857</updated>
+      <updated>1759573308359</updated>
     </task>
-    <task id="LOCAL-00002" summary="First commit. Setting up basic structures.">
+    <task id="LOCAL-00002" summary="Setting up application">
       <option name="closed" value="true" />
-      <created>1753116646728</created>
+      <created>1759573400521</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1753116646728</updated>
+      <updated>1759573400521</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Initial application set up completed.">
+      <option name="closed" value="true" />
+      <created>1759582234435</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1759582234435</updated>
+    </task>
+    <task id="LOCAL-00004" summary="App architecture mounted. Created load, home and consultation view. Created all models and persisted in the DB. Created controllers for the views.">
+      <option name="closed" value="true" />
+      <created>1761847687221</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1761847687221</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -142,10 +211,12 @@
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
-      <path value="$PROJECT_DIR$" />
+      <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="First commit. Setting up basic structures." />
-    <option name="LAST_COMMIT_MESSAGE" value="First commit. Setting up basic structures." />
+    <MESSAGE value="Setting up application" />
+    <MESSAGE value="Initial application set up completed." />
+    <MESSAGE value="App architecture mounted. Created load, home and consultation view. Created all models and persisted in the DB. Created controllers for the views." />
+    <option name="LAST_COMMIT_MESSAGE" value="App architecture mounted. Created load, home and consultation view. Created all models and persisted in the DB. Created controllers for the views." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
