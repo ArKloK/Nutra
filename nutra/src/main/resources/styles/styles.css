@@ -1,10 +1,421 @@
-/* Estilos básicos para la aplicación Nutra */
+/* Basic styles for Nutra app */
 .root {
     -fx-font-family: "Segoe UI", Arial, sans-serif;
     -fx-font-size: 14px;
 }
 
-/* Estilos para el contenedor principal */
+/* Main container styles */
 .anchor-pane {
     -fx-background-color: #f5f5f5;
 }
+
+/* ========== MAIN SCREEN (HOME) ========== */
+
+/* Home page root */
+.root-home {
+    -fx-background-color: #CDCDC0;
+}
+
+/* Menu Bar */
+.menu-bar-custom {
+    -fx-background-color: #626D71;
+    -fx-padding: 0;
+}
+
+.menu-bar-custom .label {
+    -fx-text-fill: #CDCDC0;
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+}
+
+.menu-bar-custom .menu:hover {
+    -fx-background-color: #7a8589;
+}
+
+.menu-bar-custom .menu:showing {
+    -fx-background-color: #7a8589;
+}
+
+/* Individual Menu */
+.menu-custom {
+    -fx-background-color: transparent;
+    -fx-padding: 8 15 8 15;
+}
+
+.menu-custom .label {
+    -fx-text-fill: #CDCDC0;
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+}
+
+/* Context Menu Items */
+.menu-bar-custom .context-menu {
+    -fx-background-color: #626D71;
+    -fx-border-color: #B38867;
+    -fx-border-width: 1px;
+}
+
+.menu-bar-custom .menu-item {
+    -fx-background-color: transparent;
+    -fx-text-fill: #CDCDC0;
+}
+
+.menu-bar-custom .menu-item:focused {
+    -fx-background-color: #DDBC95;
+    -fx-text-fill: #626D71;
+}
+
+.menu-bar-custom .menu-item:hover {
+    -fx-background-color: #DDBC95;
+    -fx-text-fill: #626D71;
+}
+
+.menu-bar-custom .menu-item .label {
+    -fx-text-fill: inherit;
+}
+
+/* Main content */
+.main-content {
+    -fx-background-color: #CDCDC0;
+}
+
+/* Section title */
+.section-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: 300;
+    -fx-fill: #626D71;
+    -fx-letter-spacing: 1px;
+}
+
+/* Month and year indicator */
+.month-year-text {
+    -fx-font-size: 20px;
+    -fx-font-weight: 300;
+    -fx-fill: #B38867;
+    -fx-letter-spacing: 0.5px;
+}
+
+/* Week navigation buttons */
+.week-nav-button {
+    -fx-background-color: #626D71;
+    -fx-text-fill: #CDCDC0;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20 10 20;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+    -fx-min-width: 50px;
+    -fx-min-height: 50px;
+}
+
+.week-nav-button:hover {
+    -fx-background-color: #7a8589;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.week-nav-button:pressed {
+    -fx-background-color: #B38867;
+}
+
+/* Schedule grid */
+.calendar-grid {
+    -fx-background-color: transparent;
+}
+
+/* Day headers */
+.day-header {
+    -fx-background-color: #626D71;
+    -fx-background-radius: 5px;
+    -fx-padding: 8 10 8 10;
+    -fx-spacing: 2;
+}
+
+.day-name {
+    -fx-font-size: 11px;
+    -fx-font-weight: 600;
+    -fx-fill: #CDCDC0;
+    -fx-letter-spacing: 1px;
+}
+
+.day-number {
+    -fx-font-size: 20px;
+    -fx-font-weight: 300;
+    -fx-fill: #DDBC95;
+}
+
+/* Day containers */
+.day-container {
+    -fx-background-color: transparent;
+    -fx-border-color: #B38867;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.day-container .viewport {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
+    -fx-background-radius: 5px;
+}
+
+.day-content {
+    -fx-background-color: transparent;
+}
+
+/* Custom ScrollBar */
+.day-container .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+}
+
+.day-container .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.day-container .scroll-bar:vertical .thumb {
+    -fx-background-color: #B38867;
+    -fx-background-radius: 4px;
+}
+
+.day-container .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #9a7559;
+}
+
+.day-container .scroll-bar:vertical .increment-button,
+.day-container .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-pref-height: 0;
+}
+
+/* Consult card (for future consults) */
+.consultation-card {
+    -fx-background-color: #DDBC95;
+    -fx-background-radius: 4px;
+    -fx-padding: 10;
+    -fx-border-color: #B38867;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+}
+
+.consultation-card:hover {
+    -fx-background-color: #e5c9a8;
+    -fx-cursor: hand;
+}
+
+/* ========== CONSULTATION FORM ========== */
+
+/* Consultation form container */
+.consultation-form-container {
+    -fx-background-color: #CDCDC0;
+}
+
+/* Consultation title */
+.consultation-title {
+    -fx-font-size: 32px;
+    -fx-font-weight: 300;
+    -fx-fill: #626D71;
+    -fx-letter-spacing: 1px;
+}
+
+/* Section subtitle */
+.section-subtitle {
+    -fx-font-size: 18px;
+    -fx-font-weight: 500;
+    -fx-fill: #626D71;
+    -fx-letter-spacing: 0.5px;
+}
+
+/* Form section container */
+.form-section {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
+    -fx-background-radius: 8px;
+    -fx-padding: 20;
+    -fx-border-color: #B38867;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+}
+
+/* Form labels */
+.form-label {
+    -fx-text-fill: #626D71;
+    -fx-font-size: 13px;
+    -fx-font-weight: 500;
+}
+
+/* Form controls (TextFields, ComboBox, DatePicker) */
+.form-control {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #626D71;
+    -fx-font-size: 14px;
+    -fx-padding: 8 12 8 12;
+    -fx-background-radius: 5px;
+    -fx-border-color: #B38867;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+
+.form-control:focused {
+    -fx-border-color: #626D71;
+    -fx-border-width: 2px;
+    -fx-background-color: #FFFFFF;
+}
+
+/* Readonly form controls */
+.form-control-readonly {
+    -fx-background-color: #EFEFEF;
+    -fx-text-fill: #626D71;
+    -fx-font-size: 14px;
+    -fx-padding: 8 12 8 12;
+    -fx-background-radius: 5px;
+    -fx-border-color: #B38867;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-opacity: 0.8;
+}
+
+/* TextArea controls */
+.form-control-area {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #626D71;
+    -fx-font-size: 14px;
+    -fx-padding: 8 12 8 12;
+    -fx-background-radius: 5px;
+    -fx-border-color: #B38867;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+
+.form-control-area:focused {
+    -fx-border-color: #626D71;
+    -fx-border-width: 2px;
+    -fx-background-color: #FFFFFF;
+}
+
+/* Consultation scroll pane */
+.consultation-scroll {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.consultation-scroll .viewport {
+    -fx-background-color: transparent;
+}
+
+.consultation-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.consultation-scroll .scroll-bar:vertical .track {
+    -fx-background-color: rgba(98, 109, 113, 0.1);
+    -fx-background-radius: 5px;
+}
+
+.consultation-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: #B38867;
+    -fx-background-radius: 5px;
+}
+
+.consultation-scroll .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #9a7559;
+}
+
+/* Back button */
+.back-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #626D71;
+    -fx-font-size: 16px;
+    -fx-padding: 8 16 8 16;
+    -fx-cursor: hand;
+    -fx-border-color: #626D71;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.back-button:hover {
+    -fx-background-color: #626D71;
+    -fx-text-fill: #CDCDC0;
+}
+
+/* Save button */
+.save-button {
+    -fx-background-color: #626D71;
+    -fx-text-fill: #CDCDC0;
+    -fx-font-size: 16px;
+    -fx-font-weight: 500;
+    -fx-padding: 12 30 12 30;
+    -fx-cursor: hand;
+    -fx-background-radius: 5px;
+}
+
+.save-button:hover {
+    -fx-background-color: #7a8589;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+.save-button:pressed {
+    -fx-background-color: #B38867;
+}
+
+/* Cancel button */
+.cancel-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #626D71;
+    -fx-font-size: 16px;
+    -fx-padding: 12 30 12 30;
+    -fx-cursor: hand;
+    -fx-border-color: #B38867;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.cancel-button:hover {
+    -fx-background-color: #DDBC95;
+    -fx-text-fill: #626D71;
+}
+
+/* ComboBox specific styles */
+.form-control.combo-box .list-cell {
+    -fx-text-fill: #626D71;
+}
+
+.form-control.combo-box-popup .list-view {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #B38867;
+    -fx-border-width: 1px;
+}
+
+.form-control.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: #DDBC95;
+}
+
+.form-control.combo-box-popup .list-view .list-cell:selected {
+    -fx-background-color: #626D71;
+    -fx-text-fill: #CDCDC0;
+}
+
+/* DatePicker specific styles */
+.form-control.date-picker-popup {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #B38867;
+    -fx-border-width: 1px;
+}
+
+.form-control .date-picker-popup .day-cell {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #626D71;
+}
+
+.form-control .date-picker-popup .day-cell:hover {
+    -fx-background-color: #DDBC95;
+}
+
+.form-control .date-picker-popup .selected {
+    -fx-background-color: #626D71;
+    -fx-text-fill: #CDCDC0;
+}
+

@@ -6,14 +6,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class PrimaryStageHolder {
 
-    private Stage primaryStage;
+    private static Stage primaryStage;
 
-    public Stage getPrimaryStage() {
+    public static Stage getPrimaryStage() {
         return primaryStage;
     }
 
     public void setPrimaryStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
+        PrimaryStageHolder.primaryStage = primaryStage;
     }
 
     public boolean isReady() {

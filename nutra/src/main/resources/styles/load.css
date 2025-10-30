@@ -1,0 +1,32 @@
+.root-pane {
+    -fx-background-color: #CDCDC0;
+}
+
+.app-name {
+    -fx-fill: #626D71;
+    -fx-font-weight: 300;
+    -fx-letter-spacing: 8px;
+}
+
+.tagline {
+    -fx-fill: #B38867;
+    -fx-font-weight: 300;
+    -fx-letter-spacing: 3px;
+}
+
+.loading-bar {
+    -fx-pref-height: 2;
+}
+
+.loading-bar .bar {
+    -fx-background-color: #DDBC95;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+}
+
+.loading-bar .track {
+    -fx-background-color: rgba(98, 109, 113, 0.3);
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}

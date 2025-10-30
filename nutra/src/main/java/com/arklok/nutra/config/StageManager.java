@@ -6,24 +6,30 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Objects;
 
+@Component
 public class StageManager {
-    private final Stage primaryStage;
+    private Stage primaryStage;
     private final FxmlLoader fxmlLoader;
     private final String applicationTitle;
     private final ApplicationEventPublisher eventPublisher;
 
+    @Autowired
     public StageManager(FxmlLoader fxmlLoader,
-                        Stage primaryStage,
                         ApplicationEventPublisher eventPublisher) {
-        this.primaryStage = Objects.requireNonNull(primaryStage, "primaryStage cannot be null");
         this.fxmlLoader = Objects.requireNonNull(fxmlLoader, "fxmlLoader cannot be null");
         this.eventPublisher = Objects.requireNonNull(eventPublisher, "eventPublisher cannot be null");
         this.applicationTitle = "Nutra - Gestión de Clientes";
+    }
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = Objects.requireNonNull(primaryStage, "primaryStage cannot be null");
     }
 
     public void switchScene(final FxmlView view) {

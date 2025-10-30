@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<StackPane fx:id="rootPane" prefHeight="926.0" prefWidth="1465.0" styleClass="root-pane" stylesheets="@../styles/load.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.arklok.nutra.controllers.LoadController">
+
+    <Circle fx:id="leftCircle" fill="#626D71" opacity="0.1" radius="150" translateX="-500" translateY="-300" />
+    <Circle fx:id="rightCircle" fill="#B38867" opacity="0.08" radius="200" translateX="520" translateY="320" />
+
+    <VBox alignment="CENTER" spacing="40">
+        <Text fx:id="appNameText" styleClass="app-name" text="NUTRA">
+            <font>
+                <Font name="System" size="72.0" />
+            </font>
+        </Text>
+
+        <Text fx:id="taglineText" styleClass="tagline">
+            <font>
+                <Font name="System" size="16.0" />
+            </font>
+        </Text>
+
+        <ProgressBar fx:id="loadingBar" prefHeight="2" prefWidth="300" styleClass="loading-bar">
+            <VBox.margin>
+                <Insets top="20" />
+            </VBox.margin>
+        </ProgressBar>
+
+        <Text fx:id="loadingText" style="-fx-fill: #626D71; -fx-font-weight: 300; -fx-opacity: 0.6;">
+            <font>
+                <Font name="System" size="12.0" />
+            </font>
+        </Text>
+    </VBox>
+</StackPane>

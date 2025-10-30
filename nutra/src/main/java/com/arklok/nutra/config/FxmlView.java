@@ -8,6 +8,13 @@ public enum FxmlView {
         }
     },
 
+    LOAD {
+        @Override
+        public String getFxmlPath() {
+            return "/fxml/load.fxml";
+        }
+    },
+
     HOME {
         @Override
         public String getFxmlPath() {
