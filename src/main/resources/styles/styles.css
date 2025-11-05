@@ -378,6 +378,24 @@
     -fx-text-fill: #626D71;
 }
 
+/* Secondary button (for browse, etc.) */
+.secondary-button {
+    -fx-background-color: #B38867;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 13px;
+    -fx-padding: 8 16 8 16;
+    -fx-cursor: hand;
+    -fx-background-radius: 5px;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #9a7559;
+}
+
+.secondary-button:pressed {
+    -fx-background-color: #8a6549;
+}
+
 /* ComboBox specific styles */
 .form-control.combo-box .list-cell {
     -fx-text-fill: #626D71;
@@ -419,3 +437,117 @@
     -fx-text-fill: #CDCDC0;
 }
 
+/* ========== INGREDIENTS TABLE ========== */
+
+/* Ingredients table */
+.ingredients-table {
+    -fx-background-color: transparent;
+    -fx-border-color: #B38867;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+
+.ingredients-table .column-header-background {
+    -fx-background-color: #626D71;
+}
+
+.ingredients-table .column-header {
+    -fx-background-color: transparent;
+}
+
+.ingredients-table .column-header .label {
+    -fx-text-fill: #CDCDC0;
+    -fx-font-weight: 600;
+    -fx-font-size: 13px;
+}
+
+.ingredients-table .table-cell {
+    -fx-text-fill: #626D71;
+    -fx-border-color: #DDBC95;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 8 10 8 10;
+}
+
+.ingredients-table .table-row-cell {
+    -fx-background-color: #FFFFFF;
+}
+
+.ingredients-table .table-row-cell:odd {
+    -fx-background-color: rgba(221, 188, 149, 0.1);
+}
+
+.ingredients-table .table-row-cell:selected {
+    -fx-background-color: #DDBC95;
+}
+
+.ingredients-table .table-row-cell:hover {
+    -fx-background-color: rgba(179, 136, 103, 0.1);
+}
+
+/* Remove button */
+.remove-button {
+    -fx-background-color: #B38867;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 5 10 5 10;
+    -fx-cursor: hand;
+    -fx-background-radius: 3px;
+    -fx-min-width: 30px;
+    -fx-min-height: 30px;
+}
+
+.remove-button:hover {
+    -fx-background-color: #9a7559;
+}
+
+.remove-button:pressed {
+    -fx-background-color: #8a6549;
+}
+
+/* ========== CUSTOM ALERTS AND DIALOGS ========== */
+
+.custom-alert {
+    -fx-background-color: #CDCDC0;
+}
+
+.custom-alert .header-panel {
+    -fx-background-color: #626D71;
+}
+
+.custom-alert .header-panel .label {
+    -fx-text-fill: #CDCDC0;
+    -fx-font-size: 16px;
+    -fx-font-weight: 500;
+}
+
+.custom-alert .content {
+    -fx-background-color: #CDCDC0;
+    -fx-padding: 20;
+}
+
+.custom-alert .content .label {
+    -fx-text-fill: #626D71;
+    -fx-font-size: 14px;
+}
+
+.custom-alert .button {
+    -fx-background-color: #626D71;
+    -fx-text-fill: #CDCDC0;
+    -fx-font-size: 13px;
+    -fx-padding: 8 20 8 20;
+    -fx-cursor: hand;
+    -fx-background-radius: 4px;
+}
+
+.custom-alert .button:hover {
+    -fx-background-color: #7a8589;
+}
+
+.custom-alert .button:default {
+    -fx-background-color: #B38867;
+}
+
+.custom-alert .button:default:hover {
+    -fx-background-color: #9a7559;
+}

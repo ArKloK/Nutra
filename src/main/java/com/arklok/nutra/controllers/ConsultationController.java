@@ -1,5 +1,6 @@
 package com.arklok.nutra.controllers;
 
+import com.arklok.nutra.interfaces.IController;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.springframework.stereotype.Component;
@@ -7,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 
 @Component
-public class ConsultationController {
+public class ConsultationController implements IController {
 
     @FXML
     private ComboBox<String> patientComboBox;

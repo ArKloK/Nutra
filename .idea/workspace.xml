@@ -4,43 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dbc76a8a-6e3f-4cd6-b762-467a45439b9b" name="Changes" comment="App architecture mounted. Created load, home and consultation view. Created all models and persisted in the DB. Created controllers for the views.">
+    <list default="true" id="dbc76a8a-6e3f-4cd6-b762-467a45439b9b" name="Changes" comment="Added license">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/IngredientController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/PatientController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/RecipeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/interfaces/IController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/ingredient.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/patient.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/recipe.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/CHANGELOG.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/NutraApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/NutraFxApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/config/DataSourceConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/config/FxmlLoader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/config/FxmlView.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/config/PrimaryStageHolder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/config/StageManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/constants/UIConstants.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/controllers/ConsultationController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/controllers/HomeController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/controllers/LoadController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/event/SceneResizeEvent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/helpers/UIHelper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/models/Consultation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/models/Ingredient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/models/Patient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/models/Recipe.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/java/com/arklok/nutra/models/RecipeIngredient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/resources/fxml/consultation.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/resources/fxml/home.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/resources/fxml/load.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/resources/styles/changelog.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/resources/styles/load.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/main/resources/styles/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nutra/src/test/java/com/arklok/nutra/NutraApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/NutraApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/NutraApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/ConsultationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/ConsultationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/models/Consultation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/models/Consultation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/models/Ingredient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/models/Ingredient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/models/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/models/Patient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/consultation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/consultation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/home.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/home.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/styles/changelog.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/styles/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +35,7 @@
       <list>
         <option value="FxmlFile" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -96,36 +80,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Notification.DisplayName-DoNotAsk-DatabaseConfigFileWatcher.found": "New/updated database configurations found",
-    "Notification.DoNotAsk-DatabaseConfigFileWatcher.found": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHELLCHECK.PATH": "C:\\Users\\ccama\\AppData\\Roaming\\JetBrains\\IntelliJIdea2025.2\\plugins\\Shell Script\\shellcheck.exe",
-    "Spring Boot.NutraApplication.executor": "Run",
-    "git-widget-placeholder": "develop",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/Documentos/AppAurora/Nutra/nutra",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-DatabaseConfigFileWatcher.found&quot;: &quot;New/updated database configurations found&quot;,
+    &quot;Notification.DoNotAsk-DatabaseConfigFileWatcher.found&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHELLCHECK.PATH&quot;: &quot;C:\\Users\\ccama\\AppData\\Roaming\\JetBrains\\IntelliJIdea2025.2\\plugins\\Shell Script\\shellcheck.exe&quot;,
+    &quot;Spring Boot.NutraApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Documentos/AppAurora/Nutra/nutra&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="NutraApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="nutra" />
@@ -169,7 +153,8 @@
       <workItem from="1761582305742" duration="65000" />
       <workItem from="1761582430695" duration="6681000" />
       <workItem from="1761671054430" duration="2583000" />
-      <workItem from="1761844113291" duration="3718000" />
+      <workItem from="1761844113291" duration="3835000" />
+      <workItem from="1762359074873" duration="8069000" />
     </task>
     <task id="LOCAL-00001" summary="Setting up application">
       <option name="closed" value="true" />
@@ -203,7 +188,23 @@
       <option name="project" value="LOCAL" />
       <updated>1761847687221</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Changed git main folder">
+      <option name="closed" value="true" />
+      <created>1761847926510</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1761847926510</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added license">
+      <option name="closed" value="true" />
+      <created>1761847968435</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1761847968435</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -216,7 +217,20 @@
     <MESSAGE value="Setting up application" />
     <MESSAGE value="Initial application set up completed." />
     <MESSAGE value="App architecture mounted. Created load, home and consultation view. Created all models and persisted in the DB. Created controllers for the views." />
-    <option name="LAST_COMMIT_MESSAGE" value="App architecture mounted. Created load, home and consultation view. Created all models and persisted in the DB. Created controllers for the views." />
+    <MESSAGE value="Changed git main folder" />
+    <MESSAGE value="Added license" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added license" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/HomeController.java</url>
+          <line>254</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -99,4 +99,9 @@ public class Ingredient {
 
     @Override
     public int hashCode() { return Objects.hashCode(id); }
+
+    @Override
+    public String toString() {
+        return name != null ? name : "Ingrediente sin nombre";
+    }
 }

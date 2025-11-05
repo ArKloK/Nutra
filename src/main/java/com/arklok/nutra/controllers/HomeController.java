@@ -1,6 +1,7 @@
 package com.arklok.nutra.controllers;
 
 import com.arklok.nutra.helpers.UIHelper;
+import com.arklok.nutra.interfaces.IController;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.animation.ParallelTransition;
@@ -12,8 +13,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -22,6 +23,9 @@ import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Locale;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Component
 public class HomeController {
@@ -53,18 +57,110 @@ public class HomeController {
     public VBox calendarView;
     @FXML
     public VBox consultationView;
+    @FXML
+    public VBox patientView;
+    @FXML
+    public VBox recipeView;
 
-    @Autowired
-    private ApplicationContext applicationContext;
+    private static final Logger log = LoggerFactory.getLogger(HomeController.class);
+    private final ApplicationContext applicationContext;
 
     private LocalDate currentWeekStart;
-    private ConsultationController consultationController;
+
+    public HomeController(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
 
     public void initialize() {
         UIHelper.InitializeUI();
         currentWeekStart = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         updateWeekDays();
     }
+
+    // PUBLIC METHODS
+    // -------------------------------------------------------------------------------
+
+    /**
+     * Navigate to the previous week with transition animation
+     */
+    @FXML
+    public void goToPreviousWeek() {
+        currentWeekStart = currentWeekStart.minusWeeks(1);
+        animateWeekTransition(true);
+    }
+
+    /**
+     * Navigate to the next week with transition animation
+     */
+    @FXML
+    public void goToNextWeek() {
+        currentWeekStart = currentWeekStart.plusWeeks(1);
+        animateWeekTransition(false);
+    }
+
+    /**
+     * Show the new consultation form
+     */
+    @FXML
+    public void showNewConsultation() {
+        try {
+            // Load consultation view if not already loaded
+            if (consultationView.getChildren().isEmpty()) {
+                AddContentToView("/fxml/consultation.fxml", consultationView);
+            }
+
+            // Switch views with fade transition
+            switchToView(consultationView);
+        } catch (IOException e) {
+            log.error("Error loading consultation view", e);
+        }
+    }
+
+    /**
+     * Show the new patient form
+     */
+    @FXML
+    public void showNewPatient() {
+        try {
+            // Load patient view if not already loaded
+            if (patientView.getChildren().isEmpty()) {
+                AddContentToView("/fxml/patient.fxml", patientView);
+            }
+
+            // Switch views with fade transition
+            switchToView(patientView);
+        } catch (IOException e) {
+            log.error("Error loading patient view", e);
+        }
+    }
+
+    /**
+     * Show the new recipe form
+     */
+    @FXML
+    public void showNewRecipe() {
+        try {
+            // Load recipe view if not already loaded
+            if (recipeView.getChildren().isEmpty()) {
+                AddContentToView("/fxml/recipe.fxml", recipeView);
+            }
+
+            // Switch views with fade transition
+            switchToView(recipeView);
+        } catch (IOException e) {
+            log.error("Error loading recipe view", e);
+        }
+    }
+
+    /**
+     * Show the calendar view
+     */
+    public void showCalendarView() {
+        switchToView(calendarView);
+    }
+
+    // PRIVATE METHODS
+    // -------------------------------------------------------------------------------
 
     /**
      * Updates the day numbers and month/year text based on the current week
@@ -87,25 +183,8 @@ public class HomeController {
     }
 
     /**
-     * Navigate to the previous week with transition animation
-     */
-    @FXML
-    public void goToPreviousWeek() {
-        currentWeekStart = currentWeekStart.minusWeeks(1);
-        animateWeekTransition(true);
-    }
-
-    /**
-     * Navigate to the next week with transition animation
-     */
-    @FXML
-    public void goToNextWeek() {
-        currentWeekStart = currentWeekStart.plusWeeks(1);
-        animateWeekTransition(false);
-    }
-
-    /**
      * Animate the transition when changing weeks
+     *
      * @param isGoingBack true if going to previous week, false if going to next week
      */
     private void animateWeekTransition(boolean isGoingBack) {
@@ -122,7 +201,7 @@ public class HomeController {
         // Combine fade and slide out
         ParallelTransition transitionOut = new ParallelTransition(fadeOut, slideOut);
 
-        transitionOut.setOnFinished(event -> {
+        transitionOut.setOnFinished(_ -> {
             // Update the week days in the middle of the animation
             updateWeekDays();
 
@@ -145,55 +224,51 @@ public class HomeController {
     }
 
     /**
-     * Show the new consultation form
-     */
-    @FXML
-    public void showNewConsultation() {
-        try {
-            // Load consultation view if not already loaded
-            if (consultationView.getChildren().isEmpty()) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/consultation.fxml"));
-                loader.setControllerFactory(applicationContext::getBean);
-                VBox consultationContent = loader.load();
-
-                // Get the controller and set reference to this controller
-                consultationController = loader.getController();
-                consultationController.setHomeController(this);
-
-                // Add content to consultationView
-                consultationView.getChildren().add(consultationContent);
-            }
-
-            // Switch views with fade transition
-            switchToView(consultationView);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Show the calendar view
-     */
-    public void showCalendarView() {
-        switchToView(calendarView);
-    }
-
-    /**
      * Switch between views with a fade transition
      */
     private void switchToView(VBox targetView) {
-        VBox currentView = calendarView.isVisible() ? calendarView : consultationView;
+        // Find current visible view
+        VBox currentView = null;
+        if (calendarView.isVisible()) {
+            currentView = calendarView;
+        } else if (consultationView.isVisible()) {
+            currentView = consultationView;
+        } else if (patientView.isVisible()) {
+            currentView = patientView;
+        } else if (recipeView.isVisible()) {
+            currentView = recipeView;
+        }
 
-        if (currentView == targetView) {
+        if (currentView == targetView || currentView == null) {
             return;
         }
 
         // Fade out current view
+        FadeTransition fadeOut = getFadeTransition(targetView, currentView);
+
+        fadeOut.play();
+    }
+
+    private void AddContentToView(String fxmlPath, VBox view) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+        loader.setControllerFactory(applicationContext::getBean);
+        VBox patientContent = loader.load();
+
+        // Get the controller and set reference to this controller
+        IController controller = loader.getController();
+        controller.setHomeController(this);
+
+        // Add content to view
+        view.getChildren().add(patientContent);
+    }
+
+    @NonNull
+    private static FadeTransition getFadeTransition(VBox targetView, VBox currentView) {
         FadeTransition fadeOut = new FadeTransition(Duration.millis(200), currentView);
         fadeOut.setFromValue(1.0);
         fadeOut.setToValue(0.0);
 
-        fadeOut.setOnFinished(event -> {
+        fadeOut.setOnFinished(_ -> {
             currentView.setVisible(false);
             currentView.setManaged(false);
 
@@ -207,7 +282,6 @@ public class HomeController {
             fadeIn.setToValue(1.0);
             fadeIn.play();
         });
-
-        fadeOut.play();
+        return fadeOut;
     }
 }

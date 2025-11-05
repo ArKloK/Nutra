@@ -10,6 +10,69 @@ All notable changes to this project will be documented in this file.
 
 <div class="version-header">
 
+## [v0.0.2-alpha] - 2025-11-05
+
+</div>
+
+<div class="section-header">
+
+### Added
+
+</div>
+
+- **Recipe Creation Form**: Comprehensive form for creating new recipes with all required fields
+  - Basic information section: title, description, preparation time
+  - ComboBox for selecting existing ingredients with direct add button
+  - "+" button for creating new ingredients on-the-fly
+  - Ingredients table with automatic column resizing (CONSTRAINED_RESIZE_POLICY)
+  - Right-click context menu on table rows for deleting ingredients
+  - Instructions section for step-by-step preparation
+  - Additional notes section
+- **Ingredient Management System**: Complete ingredient creation and selection workflow
+  - Modal dialog for creating new ingredients with detailed nutritional information
+  - Auto-selection of newly created ingredient in recipe ComboBox
+  - Support for macronutrients: calories, carbohydrates, sugar, protein, fiber, fats (saturated/unsaturated)
+  - Dynamic vitamin and mineral entry system with add/remove capabilities
+  - Choice dialog for selecting existing ingredients
+  - Ingredient details dialog for specifying amount, unit, and notes when adding to recipe
+- **RecipeController**: New controller with advanced ingredient management
+  - Interactive ingredients table with real-time add/remove
+  - Integration with ingredient creation workflow
+  - Validation for required fields (title, instructions)
+  - Support for both existing and new ingredient selection
+- **IngredientController**: Standalone controller for ingredient creation
+  - Dynamic form fields for vitamins and minerals
+  - Comprehensive nutritional data input
+  - Validation and data persistence preparation
+- **Recipe View Integration**: Added recipe view to home screen with smooth fade transitions
+- **Ingredients Table Styling**: Custom CSS styles for interactive table with hover effects and alternating row colors
+- **Remove Button Component**: Reusable remove button style for table actions and dynamic entries
+- **Custom Alert Dialogs**: Styled alert and confirmation dialogs matching application theme
+- **Patient Registration Form**: Complete form for registering new patients with all required fields
+  - Personal information section: first name, last name, birth date
+  - Contact information section: email, phone, address
+  - Medical information section: current weight, medical record file upload
+  - Photo upload functionality with file browser
+- **PatientController**: New controller with file browsing capabilities for medical records (PDF, Word) and patient photos (images)
+- **Patient View Integration**: Added patient view to home screen with smooth fade transitions
+- **Menu Integration**: Connected "Nuevo Paciente" and "Nueva Receta" menu items to respective forms
+- **Secondary Button Style**: New CSS style for browse buttons and secondary actions
+- **Form Validation**: Basic validation for required fields across all forms
+
+<div class="section-header">
+
+### Changed
+
+</div>
+
+- **HomeController**: Updated to handle four views (calendar, consultation, patient, recipe) with improved view switching logic
+- **View Transition System**: Enhanced switchToView method to dynamically detect current visible view
+- **Ingredient Model**: Updated to support Dictionary/Map structures for vitamins and minerals with proper JPA persistence
+
+---
+
+<div class="version-header">
+
 ## [v0.0.1-alpha] - 2025-10-30
 
 </div>

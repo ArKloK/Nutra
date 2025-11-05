@@ -1,6 +1,7 @@
 package com.arklok.nutra.models;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
@@ -33,7 +34,8 @@ public class Patient {
             fetch = FetchType.LAZY)
     private Set<Consultation> consultations = new HashSet<>();
 
-    public Patient() {}
+    public Patient() {
+    }
 
     // helpers
     public void addConsultation(Consultation c) {
@@ -43,14 +45,14 @@ public class Patient {
 
     public void removeConsultation(Consultation c) {
         consultations.remove(c);
-        c.setPatient(null);
+        //c.setPatient(null);
     }
 
     @PreRemove
     private void preRemove() {
         // before deleting the patient, detach consultations and preserve patient name on them
         for (Consultation c : new HashSet<>(consultations)) {
-            c.setPatient(null);
+            //c.setPatient(null);
             String fullName = (firstName != null ? firstName : "") + (lastName != null ? " " + lastName : "");
             c.setPatientName(fullName.trim());
         }
@@ -58,38 +60,93 @@ public class Patient {
 
     // getters & setters
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getFirstName() { return firstName; }
-    public void setFirstName(String firstName) { this.firstName = firstName; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getLastName() { return lastName; }
-    public void setLastName(String lastName) { this.lastName = lastName; }
+    public String getFirstName() {
+        return firstName;
+    }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-    public String getPhone() { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
+    public String getLastName() {
+        return lastName;
+    }
 
-    public LocalDate getBirthDate() { return birthDate; }
-    public void setBirthDate(LocalDate birthDate) { this.birthDate = birthDate; }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-    public String getAddress() { return address; }
-    public void setAddress(String address) { this.address = address; }
+    public String getEmail() {
+        return email;
+    }
 
-    public String getMedicalRecordPath() { return medicalRecordPath; }
-    public void setMedicalRecordPath(String medicalRecordPath) { this.medicalRecordPath = medicalRecordPath; }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    public String getPhotoPath() { return photoPath; }
-    public void setPhotoPath(String photoPath) { this.photoPath = photoPath; }
+    public String getPhone() {
+        return phone;
+    }
 
-    public Float getCurrentWeight() { return currentWeight; }
-    public void setCurrentWeight(Float currentWeight) { this.currentWeight = currentWeight; }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-    public Set<Consultation> getConsultations() { return consultations; }
-    public void setConsultations(Set<Consultation> consultations) { this.consultations = consultations; }
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getMedicalRecordPath() {
+        return medicalRecordPath;
+    }
+
+    public void setMedicalRecordPath(String medicalRecordPath) {
+        this.medicalRecordPath = medicalRecordPath;
+    }
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
+    }
+
+    public Float getCurrentWeight() {
+        return currentWeight;
+    }
+
+    public void setCurrentWeight(Float currentWeight) {
+        this.currentWeight = currentWeight;
+    }
+
+    public Set<Consultation> getConsultations() {
+        return consultations;
+    }
+
+    public void setConsultations(Set<Consultation> consultations) {
+        this.consultations = consultations;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -99,5 +156,7 @@ public class Patient {
     }
 
     @Override
-    public int hashCode() { return Objects.hashCode(id); }
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }

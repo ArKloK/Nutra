@@ -11,9 +11,7 @@ public class NutraApplication{
         ConfigurableApplicationContext ctx = new SpringApplicationBuilder(NutraFxApplication.class)
                 .headless(false)
                 .run(args);
-
         Application.launch(NutraFxApplication.class, args);
-
         ctx.close();
     }
 }

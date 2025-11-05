@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.ColumnConstraints?>
+
+<VBox prefHeight="700.0" prefWidth="600.0" spacing="20" styleClass="consultation-form-container" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.arklok.nutra.controllers.IngredientController">
+    <padding>
+        <Insets bottom="30" left="30" right="30" top="30" />
+    </padding>
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT">
+        <Text styleClass="consultation-title" text="Nuevo Ingrediente" />
+    </HBox>
+
+    <!-- Form Content in ScrollPane -->
+    <ScrollPane fitToWidth="true" styleClass="consultation-scroll" VBox.vgrow="ALWAYS">
+        <VBox spacing="20">
+            <padding>
+                <Insets bottom="10" left="5" right="5" top="5" />
+            </padding>
+
+            <!-- Basic Information -->
+            <VBox spacing="15" styleClass="form-section">
+                <Text styleClass="section-subtitle" text="Información Básica" />
+
+                <VBox spacing="8">
+                    <Label styleClass="form-label" text="Nombre del Ingrediente*" />
+                    <TextField fx:id="nameField" promptText="Ej: Arroz integral" styleClass="form-control" />
+                </VBox>
+
+                <VBox spacing="8">
+                    <Label styleClass="form-label" text="Calorías (kcal por 100g)" />
+                    <TextField fx:id="caloriesField" promptText="0.0" styleClass="form-control" />
+                </VBox>
+            </VBox>
+
+            <!-- Macronutrients -->
+            <VBox spacing="15" styleClass="form-section">
+                <Text styleClass="section-subtitle" text="Macronutrientes (por 100g)" />
+
+                <GridPane hgap="15" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50" />
+                        <ColumnConstraints percentWidth="50" />
+                    </columnConstraints>
+
+                    <!-- Row 0 -->
+                    <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <Label styleClass="form-label" text="Carbohidratos (g)" />
+                        <TextField fx:id="carbohydratesField" promptText="0.0" styleClass="form-control" />
+                    </VBox>
+
+                    <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <Label styleClass="form-label" text="Azúcar (g)" />
+                        <TextField fx:id="sugarField" promptText="0.0" styleClass="form-control" />
+                    </VBox>
+
+                    <!-- Row 1 -->
+                    <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <Label styleClass="form-label" text="Proteína (g)" />
+                        <TextField fx:id="proteinField" promptText="0.0" styleClass="form-control" />
+                    </VBox>
+
+                    <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label styleClass="form-label" text="Fibra (g)" />
+                        <TextField fx:id="fiberField" promptText="0.0" styleClass="form-control" />
+                    </VBox>
+
+                    <!-- Row 2 -->
+                    <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                        <Label styleClass="form-label" text="Grasa Total (g)" />
+                        <TextField fx:id="fatField" promptText="0.0" styleClass="form-control" />
+                    </VBox>
+
+                    <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Label styleClass="form-label" text="Grasa Saturada (g)" />
+                        <TextField fx:id="saturatedFatField" promptText="0.0" styleClass="form-control" />
+                    </VBox>
+
+                    <!-- Row 3 -->
+                    <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                        <Label styleClass="form-label" text="Grasa Insaturada (g)" />
+                        <TextField fx:id="unsaturatedFatField" promptText="0.0" styleClass="form-control" />
+                    </VBox>
+                </GridPane>
+            </VBox>
+
+            <!-- Vitamins Section -->
+            <VBox spacing="15" styleClass="form-section">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Text styleClass="section-subtitle" text="Vitaminas" HBox.hgrow="ALWAYS" />
+                    <Button onAction="#addVitamin" styleClass="secondary-button" text="+ Añadir Vitamina" />
+                </HBox>
+
+                <VBox fx:id="vitaminsContainer" spacing="10">
+                    <!-- Dynamic vitamin fields will be added here -->
+                </VBox>
+            </VBox>
+
+            <!-- Minerals Section -->
+            <VBox spacing="15" styleClass="form-section">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Text styleClass="section-subtitle" text="Minerales" HBox.hgrow="ALWAYS" />
+                    <Button onAction="#addMineral" styleClass="secondary-button" text="+ Añadir Mineral" />
+                </HBox>
+
+                <VBox fx:id="mineralsContainer" spacing="10">
+                    <!-- Dynamic mineral fields will be added here -->
+                </VBox>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+
+    <!-- Action Buttons -->
+    <HBox alignment="CENTER" spacing="20">
+        <Button onAction="#cancelIngredient" styleClass="cancel-button" text="Cancelar" />
+        <Button onAction="#saveIngredient" styleClass="save-button" text="Guardar Ingrediente" />
+    </HBox>
+</VBox>
+
