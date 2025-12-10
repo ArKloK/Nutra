@@ -6,6 +6,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
@@ -40,8 +41,17 @@
                 </VBox>
 
                 <VBox spacing="8">
-                    <Label styleClass="form-label" text="Fecha y Hora de la Consulta" />
+                    <Label styleClass="form-label" text="Fecha de la Consulta" />
                     <DatePicker fx:id="consultationDatePicker" prefWidth="Infinity" promptText="dd/mm/aaaa" styleClass="form-control" />
+                </VBox>
+
+                <VBox spacing="8">
+                    <Label styleClass="form-label" text="Hora de la Consulta" />
+                    <HBox spacing="10">
+                        <Spinner fx:id="hourSpinner" prefWidth="80" styleClass="form-control" />
+                        <Label styleClass="form-label" text=":" />
+                        <Spinner fx:id="minuteSpinner" prefWidth="80" styleClass="form-control" />
+                    </HBox>
                 </VBox>
             </VBox>
 
@@ -60,7 +70,7 @@
                 <Text styleClass="section-subtitle" text="Observaciones" />
 
                 <VBox spacing="8">
-                    <Label styleClass="form-label" text="Motivo de Consulta" />
+                    <Label styleClass="form-label" text="Motivo de Consulta *" />
                     <TextArea fx:id="reasonArea" prefRowCount="3" promptText="Describe el motivo de la consulta..." styleClass="form-control-area" wrapText="true" />
                 </VBox>
 

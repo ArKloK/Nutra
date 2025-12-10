@@ -1,8 +1,10 @@
 package com.arklok.nutra.controllers;
 
 import com.arklok.nutra.interfaces.IController;
+import com.arklok.nutra.models.Patient;
+import com.arklok.nutra.services.PatientService;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
@@ -11,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+
+import static com.arklok.nutra.helpers.ControllersHelper.showAlert;
 
 @Component
 public class PatientController implements IController {
@@ -45,6 +49,11 @@ public class PatientController implements IController {
     private TextField photoPathField;
 
     private HomeController homeController;
+    private final PatientService patientService;
+
+    public PatientController(PatientService patientService) {
+        this.patientService = patientService;
+    }
 
     public void initialize() {
         log.info("Patient controller initialized");
@@ -97,20 +106,82 @@ public class PatientController implements IController {
     @FXML
     public void savePatient() {
         // Validate required fields
-        if (firstNameField.getText().trim().isEmpty() ||
-            lastNameField.getText().trim().isEmpty() ||
-            birthDatePicker.getValue() == null) {
-
-            log.warn("Required fields are missing");
-            // TODO: Show error message to user
+        if (firstNameField.getText() == null || firstNameField.getText().trim().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Por favor, rellena el nombre");
+            return;
+        }
+        if (lastNameField.getText() == null || lastNameField.getText().trim().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Por favor, rellena el apellido");
+            return;
+        }
+        if (birthDatePicker.getValue() == null) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Por favor, selecciona una fecha de nacimiento");
             return;
         }
 
-        // TODO: Create patient object and save to database
-        log.info("Saving patient: {} {}", firstNameField.getText(), lastNameField.getText());
+        try {
+            // Create patient object
+            Patient patient = new Patient();
+            patient.setFirstName(firstNameField.getText().trim());
+            patient.setLastName(lastNameField.getText().trim());
+            patient.setBirthDate(birthDatePicker.getValue());
 
-        // For now, just go back
-        goBack();
+            // Set optional fields
+            if (emailField.getText() != null && !emailField.getText().trim().isEmpty()) {
+                patient.setEmail(emailField.getText().trim());
+            }
+
+            if (phoneField.getText() != null && !phoneField.getText().trim().isEmpty()) {
+                patient.setPhone(phoneField.getText().trim());
+            }
+
+            if (addressField.getText() != null && !addressField.getText().trim().isEmpty()) {
+                patient.setAddress(addressField.getText().trim());
+            }
+
+            if (medicalRecordPathField.getText() != null && !medicalRecordPathField.getText().trim().isEmpty()) {
+                patient.setMedicalRecordPath(medicalRecordPathField.getText().trim());
+            }
+
+            if (photoPathField.getText() != null && !photoPathField.getText().trim().isEmpty()) {
+                patient.setPhotoPath(photoPathField.getText().trim());
+            }
+
+            // Parse and set current weight if provided
+            if (currentWeightField.getText() != null && !currentWeightField.getText().trim().isEmpty()) {
+                try {
+                    float weight = Float.parseFloat(currentWeightField.getText().trim());
+                    if (weight <= 0) {
+                        showAlert(Alert.AlertType.ERROR, "Error", "El peso debe ser un número positivo");
+                        return;
+                    }
+                    patient.setCurrentWeight(weight);
+                } catch (NumberFormatException e) {
+                    showAlert(Alert.AlertType.ERROR, "Error", "El peso debe ser un número válido");
+                    return;
+                }
+            }
+
+            // Save patient to database
+            Patient savedPatient = patientService.save(patient);
+
+            log.info("Patient saved successfully: {} {} (ID: {})",
+                    savedPatient.getFirstName(),
+                    savedPatient.getLastName(),
+                    savedPatient.getId());
+
+            // Show success message
+            showAlert(Alert.AlertType.INFORMATION, "Éxito",
+                    "Paciente guardado correctamente: " + savedPatient.getFirstName() + " " + savedPatient.getLastName());
+
+            // Go back to calendar view
+            goBack();
+
+        } catch (Exception e) {
+            log.error("Error saving patient", e);
+            showAlert(Alert.AlertType.ERROR, "Error",
+                    "Error al guardar el paciente: " + e.getMessage());
+        }
     }
 
     /**

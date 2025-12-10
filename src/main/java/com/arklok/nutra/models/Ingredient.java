@@ -1,5 +1,6 @@
 package com.arklok.nutra.models;
 
+import com.arklok.nutra.enums.Allergen;
 import jakarta.persistence.*;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -45,6 +46,12 @@ public class Ingredient {
     @Column(name = "mineral_value")
     private Map<String, Float> minerals = new HashMap<>();
 
+    @ElementCollection(targetClass = Allergen.class, fetch = FetchType.LAZY)
+    @CollectionTable(name = "ingredient_allergens", joinColumns = @JoinColumn(name = "ingredient_id"))
+    @Enumerated(EnumType.STRING)
+    @Column(name = "allergen")
+    private Set<Allergen> allergens = new HashSet<>();
+
     @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<RecipeIngredient> recipeIngredients = new HashSet<>();
 
@@ -86,6 +93,9 @@ public class Ingredient {
 
     public Map<String, Float> getMinerals() { return minerals; }
     public void setMinerals(Map<String, Float> minerals) { this.minerals = minerals; }
+
+    public Set<Allergen> getAllergens() { return allergens; }
+    public void setAllergens(Set<Allergen> allergens) { this.allergens = allergens; }
 
     public Set<RecipeIngredient> getRecipeIngredients() { return recipeIngredients; }
     public void setRecipeIngredients(Set<RecipeIngredient> recipeIngredients) { this.recipeIngredients = recipeIngredients; }

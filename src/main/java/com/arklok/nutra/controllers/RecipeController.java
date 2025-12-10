@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -20,6 +21,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Optional;
 
 @Component
@@ -150,7 +152,7 @@ public class RecipeController implements IController {
             stage.setScene(new Scene(root));
 
             // Apply styles
-            stage.getScene().getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
+            stage.getScene().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/styles/styles.css")).toExternalForm());
 
             stage.showAndWait();
 
@@ -158,7 +160,8 @@ public class RecipeController implements IController {
             if (ingredientController.isSaved()) {
                 Ingredient newIngredient = ingredientController.getCreatedIngredient();
                 availableIngredients.add(newIngredient);
-                ingredientComboBox.getSelectionModel().select(newIngredient);
+                // schedule the selection on the next pulse to avoid interfering with internal ListView events
+                Platform.runLater(() -> ingredientComboBox.getSelectionModel().select(newIngredient));
                 log.info("New ingredient added: {}", newIngredient.getName());
             }
 
@@ -228,7 +231,7 @@ public class RecipeController implements IController {
         dialog.getDialogPane().setContent(grid);
 
         // Style the dialog
-        dialog.getDialogPane().getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
+        dialog.getDialogPane().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/styles/styles.css")).toExternalForm());
 
         // Convert result
         dialog.setResultConverter(dialogButton -> {
@@ -360,4 +363,3 @@ public class RecipeController implements IController {
         }
     }
 }
-

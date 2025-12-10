@@ -10,6 +10,100 @@ All notable changes to this project will be documented in this file.
 
 <div class="version-header">
 
+## [v0.0.3-alpha] - 2025-12-10
+
+</div>
+
+<div class="section-header">
+
+### Added
+
+</div>
+
+- **Database Persistence Layer**: Complete repository and service architecture
+  - `ConsultationRepository` and `ConsultationService` with queries for weekly/daily consultation retrieval
+  - `PatientRepository` and `PatientService` with search functionality by name
+  - Transaction management with `@Transactional` annotation
+- **Interactive Calendar Consultations**: Right-click context menu system for creating consultations
+  - Click derecho on empty day shows "Nueva Consulta" option with date pre-selection
+  - Consultation cards displayed on their scheduled days
+  - Cards show time (HH:mm), patient name, and consultation reason
+- **Consultation Cards**: Visual cards with hover effects and context menu
+  - Click izquierdo opens consultation details (pending implementation)
+  - Click derecho shows "Eliminar" option with confirmation dialog
+  - Auto-adjusting text wrapping based on container width
+  - Smooth shadow effects and responsive scaling
+- **Consultation Form Enhancements**: 
+  - Hour and minute spinners for precise time selection
+  - Patient ComboBox loaded from database with custom cell factory
+  - Pre-selected date when created from calendar right-click
+  - Complete field validation (patient, date, reason)
+  - Auto-reload calendar after saving consultation
+- **Patient Save Functionality**: Complete database integration
+  - Required field validation (first name, last name, birth date)
+  - Optional field handling (email, phone, address, weight, files)
+  - Weight validation (positive numbers only)
+  - Success confirmation with patient name and ID
+  - Error handling with user-friendly messages
+- **Context Menu Styling**: Custom styles for context menus
+  - `.context-menu-calendar`: White background with bronze border and shadow
+  - `.menu-item-new-consultation`: Neutral style with beige hover effect
+  - `.menu-item-delete`: Bronze text with inverted hover (bronze background, white text)
+- **Event Propagation Control**: `event.consume()` prevents menu overlap when clicking on consultation cards
+
+<div class="section-header">
+
+### Changed
+
+</div>
+
+- **HomeController**: Major refactoring with consultation management
+  - Added `ConsultationService` dependency injection
+  - Day containers (`mondayContent`, `tuesdayContent`, etc.) mapped with `fx:id` references
+  - `showNewConsultation()` now accepts optional `LocalDate` parameter
+  - Week navigation buttons reload consultations automatically
+  - Added methods: `initializeDayContainers()`, `setupContextMenus()`, `loadConsultationsForWeek()`, `createConsultationCard()`, `deleteConsultation()`, `reloadConsultations()`
+- **ConsultationController**: Enhanced with service integration
+  - Added `ConsultationService` and `PatientService` dependencies
+  - Hour/minute spinners initialization in `initialize()` method
+  - `setPreselectedDate()` method for calendar integration
+  - Complete `saveConsultation()` implementation with validation and database persistence
+  - Improved error handling with try-catch blocks
+- **PatientController**: Database integration implemented
+  - Added `PatientService` dependency injection
+  - Complete `savePatient()` implementation with field validation
+  - Optional fields handling (email, phone, address, medical records, photos)
+  - Weight parsing with error handling
+  - Success/error alerts with detailed messages
+- **home.fxml**: Added `fx:id` attributes to all day containers
+  - 7 ScrollPanes: `mondayContainer` through `sundayContainer`
+  - 7 VBox: `mondayContent` through `sundayContent`
+- **consultation.fxml**: Added time selection controls
+  - Hour `Spinner` (0-23) with `fx:id="hourSpinner"`
+  - Minute `Spinner` (0-59) with `fx:id="minuteSpinner"`
+  - Imported `javafx.scene.control.Spinner`
+- **styles.css**: New consultation card and context menu styles
+  - `.consultation-card`: Beige background with border, shadow, and hover effects
+  - `.consultation-time`: Bold time display
+  - `.consultation-patient`: Patient name style
+  - `.consultation-reason`: Subtle reason text
+  - Context menu styles with hover effects
+
+<div class="section-header">
+
+### Fixed
+
+</div>
+
+- **Consultation Card Width**: Removed `setMaxWidth(Double.MAX_VALUE)` that caused cards to overflow container
+- **Card Text Wrapping**: Dynamic `wrappingWidth` binding adjusts to container width changes
+- **Event Propagation**: Context menus now properly isolated (card vs. day container) using `event.consume()`
+- **Empty Service Files**: Recreated `PatientService.java` and fixed corrupted `ConsultationRepository.java`
+
+---
+
+<div class="version-header">
+
 ## [v0.0.2-alpha] - 2025-11-05
 
 </div>

@@ -188,7 +188,7 @@
     -fx-pref-height: 0;
 }
 
-/* Consult card (for future consults) */
+/* Consultation card (for calendar view) */
 .consultation-card {
     -fx-background-color: #DDBC95;
     -fx-background-radius: 4px;
@@ -196,11 +196,92 @@
     -fx-border-color: #B38867;
     -fx-border-width: 1px;
     -fx-border-radius: 4px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 4, 0, 0, 2);
 }
 
 .consultation-card:hover {
     -fx-background-color: #e5c9a8;
     -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0, 0, 3);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+/* Consultation card text elements */
+.consultation-time {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-fill: #626D71;
+}
+
+.consultation-patient {
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-fill: #626D71;
+}
+
+.consultation-reason {
+    -fx-font-size: 12px;
+    -fx-fill: #626D71;
+    -fx-opacity: 0.8;
+}
+
+/* ========== CONTEXT MENUS ========== */
+
+/* Context menu general styles */
+.context-menu-calendar {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #B38867;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 3);
+}
+
+/* Menu item for "Nueva Consulta" */
+.menu-item-new-consultation {
+    -fx-background-color: transparent;
+    -fx-text-fill: #626D71;
+    -fx-padding: 8 20 8 20;
+    -fx-font-size: 13px;
+    -fx-font-weight: 500;
+}
+
+.menu-item-new-consultation:hover {
+    -fx-background-color: #DDBC95;
+    -fx-text-fill: #626D71;
+}
+
+.menu-item-new-consultation:focused {
+    -fx-background-color: #DDBC95;
+}
+
+.menu-item-new-consultation .label {
+    -fx-text-fill: inherit;
+}
+
+/* Menu item for "Eliminar" */
+.menu-item-delete {
+    -fx-background-color: transparent;
+    -fx-text-fill: #B38867;
+    -fx-padding: 8 20 8 20;
+    -fx-font-size: 13px;
+    -fx-font-weight: 500;
+}
+
+.menu-item-delete:hover {
+    -fx-background-color: #B38867;
+    -fx-text-fill: #FFFFFF;
+}
+
+.menu-item-delete:focused {
+    -fx-background-color: #B38867;
+    -fx-text-fill: #FFFFFF;
+}
+
+.menu-item-delete .label {
+    -fx-text-fill: inherit;
 }
 
 /* ========== CONSULTATION FORM ========== */
@@ -388,12 +469,8 @@
     -fx-background-radius: 5px;
 }
 
-.secondary-button:hover {
-    -fx-background-color: #9a7559;
-}
-
-.secondary-button:pressed {
-    -fx-background-color: #8a6549;
+.secondary-button > .list-cell {
+    -fx-text-fill: #FFFFFF;
 }
 
 /* ComboBox specific styles */

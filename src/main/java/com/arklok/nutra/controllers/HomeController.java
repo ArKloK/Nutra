@@ -2,12 +2,16 @@ package com.arklok.nutra.controllers;
 
 import com.arklok.nutra.helpers.UIHelper;
 import com.arklok.nutra.interfaces.IController;
+import com.arklok.nutra.models.Consultation;
+import com.arklok.nutra.services.ConsultationService;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.animation.ParallelTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -20,9 +24,10 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.TemporalAdjusters;
-import java.util.Locale;
+import java.util.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +55,8 @@ public class HomeController {
     @FXML
     public Button nextWeekButton;
     @FXML
+    public Button currentWeekButton;
+    @FXML
     public GridPane calendarGrid;
     @FXML
     public StackPane contentPane;
@@ -61,20 +68,61 @@ public class HomeController {
     public VBox patientView;
     @FXML
     public VBox recipeView;
+    @FXML
+    public ScrollPane mondayContainer;
+    @FXML
+    public ScrollPane tuesdayContainer;
+    @FXML
+    public ScrollPane wednesdayContainer;
+    @FXML
+    public ScrollPane thursdayContainer;
+    @FXML
+    public ScrollPane fridayContainer;
+    @FXML
+    public ScrollPane saturdayContainer;
+    @FXML
+    public ScrollPane sundayContainer;
+    @FXML
+    public VBox mondayContent;
+    @FXML
+    public VBox tuesdayContent;
+    @FXML
+    public VBox wednesdayContent;
+    @FXML
+    public VBox thursdayContent;
+    @FXML
+    public VBox fridayContent;
+    @FXML
+    public VBox saturdayContent;
+    @FXML
+    public VBox sundayContent;
 
     private static final Logger log = LoggerFactory.getLogger(HomeController.class);
     private final ApplicationContext applicationContext;
+    private final ConsultationService consultationService;
 
     private LocalDate currentWeekStart;
+    private LocalDate selectedDateForNewConsultation;
+    private Map<LocalDate, VBox> dayContainers;
 
-    public HomeController(ApplicationContext applicationContext) {
+    public HomeController(ApplicationContext applicationContext, ConsultationService consultationService) {
         this.applicationContext = applicationContext;
+        this.consultationService = consultationService;
     }
 
     public void initialize() {
         UIHelper.InitializeUI();
         currentWeekStart = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+
+        // Initialize day containers map
+        initializeDayContainers();
+
+        // Setup context menus for each day
+        setupContextMenus();
+
+        // Update week days and load consultations
         updateWeekDays();
+        loadConsultationsForWeek();
     }
 
     // PUBLIC METHODS
@@ -87,6 +135,7 @@ public class HomeController {
     public void goToPreviousWeek() {
         currentWeekStart = currentWeekStart.minusWeeks(1);
         animateWeekTransition(true);
+        loadConsultationsForWeek();
     }
 
     /**
@@ -96,6 +145,17 @@ public class HomeController {
     public void goToNextWeek() {
         currentWeekStart = currentWeekStart.plusWeeks(1);
         animateWeekTransition(false);
+        loadConsultationsForWeek();
+    }
+
+    /**
+     * Navigate back to the current week with transition animation
+     */
+    @FXML
+    public void goToCurrentWeek() {
+        currentWeekStart = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        animateWeekTransition(false);
+        loadConsultationsForWeek();
     }
 
     /**
@@ -103,11 +163,31 @@ public class HomeController {
      */
     @FXML
     public void showNewConsultation() {
+        showNewConsultation(null);
+    }
+
+    /**
+     * Show the new consultation form with a preselected date
+     */
+    public void showNewConsultation(LocalDate date) {
         try {
-            // Load consultation view if not already loaded
-            if (consultationView.getChildren().isEmpty()) {
-                AddContentToView("/fxml/consultation.fxml", consultationView);
+            // Reload consultation view to get a fresh form
+            consultationView.getChildren().clear();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/consultation.fxml"));
+            loader.setControllerFactory(applicationContext::getBean);
+            VBox consultationContent = loader.load();
+
+            // Get the controller and set reference to this controller
+            ConsultationController controller = loader.getController();
+            controller.setHomeController(this);
+
+            // Set the preselected date if provided
+            if (date != null) {
+                controller.setPreselectedDate(date);
             }
+
+            // Add content to view
+            consultationView.getChildren().add(consultationContent);
 
             // Switch views with fade transition
             switchToView(consultationView);
@@ -283,5 +363,199 @@ public class HomeController {
             fadeIn.play();
         });
         return fadeOut;
+    }
+
+    /**
+     * Initialize the map of day containers
+     */
+    private void initializeDayContainers() {
+        dayContainers = new LinkedHashMap<>();
+        dayContainers.put(currentWeekStart, mondayContent);
+        dayContainers.put(currentWeekStart.plusDays(1), tuesdayContent);
+        dayContainers.put(currentWeekStart.plusDays(2), wednesdayContent);
+        dayContainers.put(currentWeekStart.plusDays(3), thursdayContent);
+        dayContainers.put(currentWeekStart.plusDays(4), fridayContent);
+        dayContainers.put(currentWeekStart.plusDays(5), saturdayContent);
+        dayContainers.put(currentWeekStart.plusDays(6), sundayContent);
+    }
+
+    /**
+     * Update the day containers map when week changes
+     */
+    private void updateDayContainersMap() {
+        dayContainers.clear();
+        dayContainers.put(currentWeekStart, mondayContent);
+        dayContainers.put(currentWeekStart.plusDays(1), tuesdayContent);
+        dayContainers.put(currentWeekStart.plusDays(2), wednesdayContent);
+        dayContainers.put(currentWeekStart.plusDays(3), thursdayContent);
+        dayContainers.put(currentWeekStart.plusDays(4), fridayContent);
+        dayContainers.put(currentWeekStart.plusDays(5), saturdayContent);
+        dayContainers.put(currentWeekStart.plusDays(6), sundayContent);
+    }
+
+    /**
+     * Setup context menus for each day container
+     */
+    private void setupContextMenus() {
+        setupContextMenuForDay(mondayContainer, 0);
+        setupContextMenuForDay(tuesdayContainer, 1);
+        setupContextMenuForDay(wednesdayContainer, 2);
+        setupContextMenuForDay(thursdayContainer, 3);
+        setupContextMenuForDay(fridayContainer, 4);
+        setupContextMenuForDay(saturdayContainer, 5);
+        setupContextMenuForDay(sundayContainer, 6);
+    }
+
+    /**
+     * Setup context menu for a specific day container
+     */
+    private void setupContextMenuForDay(ScrollPane dayContainer, int dayOffset) {
+        dayContainer.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.SECONDARY) {
+                LocalDate clickedDate = currentWeekStart.plusDays(dayOffset);
+                showContextMenuForDay(dayContainer, event.getScreenX(), event.getScreenY(), clickedDate);
+            }
+        });
+    }
+
+    /**
+     * Show context menu for a specific day
+     */
+    private void showContextMenuForDay(ScrollPane dayContainer, double screenX, double screenY, LocalDate date) {
+        ContextMenu contextMenu = new ContextMenu();
+        contextMenu.getStyleClass().add("context-menu-calendar");
+
+        MenuItem addConsultationItem = new MenuItem("Nueva Consulta");
+        addConsultationItem.getStyleClass().add("menu-item-new-consultation");
+        addConsultationItem.setOnAction(_ -> {
+            selectedDateForNewConsultation = date;
+            showNewConsultation(date);
+        });
+
+        contextMenu.getItems().add(addConsultationItem);
+        contextMenu.show(dayContainer, screenX, screenY);
+    }
+
+    /**
+     * Load consultations for the current week
+     */
+    private void loadConsultationsForWeek() {
+        // Update day containers map
+        updateDayContainersMap();
+
+        // Clear all day containers
+        clearAllDayContainers();
+
+        // Load consultations from database
+        List<Consultation> consultations = consultationService.findByWeek(currentWeekStart);
+
+        // Add consultation cards to their respective days
+        for (Consultation consultation : consultations) {
+            LocalDate consultationDate = consultation.getDateTime().toLocalDate();
+            VBox dayContainer = dayContainers.get(consultationDate);
+
+            if (dayContainer != null) {
+                VBox consultationCard = createConsultationCard(consultation);
+                dayContainer.getChildren().add(consultationCard);
+            }
+        }
+    }
+
+    /**
+     * Clear all day containers
+     */
+    private void clearAllDayContainers() {
+        mondayContent.getChildren().clear();
+        tuesdayContent.getChildren().clear();
+        wednesdayContent.getChildren().clear();
+        thursdayContent.getChildren().clear();
+        fridayContent.getChildren().clear();
+        saturdayContent.getChildren().clear();
+        sundayContent.getChildren().clear();
+    }
+
+    /**
+     * Create a consultation card for display in the calendar
+     */
+    private VBox createConsultationCard(Consultation consultation) {
+        VBox card = new VBox(5);
+        card.getStyleClass().add("consultation-card");
+        card.setPadding(new Insets(10));
+
+
+        // Time label
+        Text timeText = new Text(consultation.getDateTime().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+        timeText.getStyleClass().add("consultation-time");
+
+        // Patient name label
+        Text patientText = new Text(consultation.getPatientName());
+        patientText.getStyleClass().add("consultation-patient");
+        patientText.setWrappingWidth(0); // Will be bound later
+
+        // Reason label
+        Text reasonText = new Text(consultation.getReason());
+        reasonText.getStyleClass().add("consultation-reason");
+        reasonText.setWrappingWidth(0); // Will be bound later
+
+        card.getChildren().addAll(timeText, patientText, reasonText);
+
+        // Add click handler to view/edit consultation
+        card.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY) {
+                viewConsultation(consultation);
+            } else if (event.getButton() == MouseButton.SECONDARY) {
+                // Consume the event to prevent it from propagating to parent
+                event.consume();
+            }
+        });
+
+        // Add context menu for delete option
+        ContextMenu contextMenu = new ContextMenu();
+        contextMenu.getStyleClass().add("context-menu-calendar");
+
+        MenuItem deleteItem = new MenuItem("Eliminar");
+        deleteItem.getStyleClass().add("menu-item-delete");
+        deleteItem.setOnAction(_ -> deleteConsultation(consultation));
+        contextMenu.getItems().add(deleteItem);
+
+        card.setOnContextMenuRequested(event -> {
+            contextMenu.show(card, event.getScreenX(), event.getScreenY());
+            // Consume the event to prevent it from propagating to parent
+            event.consume();
+        });
+
+        return card;
+    }
+
+    /**
+     * View/edit a consultation
+     */
+    private void viewConsultation(Consultation consultation) {
+        // TODO: Implement view/edit consultation
+        log.info("Viewing consultation: {}", consultation.getId());
+    }
+
+    /**
+     * Delete a consultation
+     */
+    private void deleteConsultation(Consultation consultation) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmar eliminación");
+        alert.setHeaderText("¿Eliminar consulta?");
+        alert.setContentText("Esta acción no se puede deshacer.");
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                consultationService.delete(consultation);
+                loadConsultationsForWeek();
+            }
+        });
+    }
+
+    /**
+     * Reload consultations (to be called after saving a new consultation)
+     */
+    public void reloadConsultations() {
+        loadConsultationsForWeek();
     }
 }
