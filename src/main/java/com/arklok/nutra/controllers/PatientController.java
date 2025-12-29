@@ -48,8 +48,13 @@ public class PatientController implements IController {
     @FXML
     private TextField photoPathField;
 
+    @FXML
+    private javafx.scene.text.Text titleText;
+
     private HomeController homeController;
     private final PatientService patientService;
+    private Patient currentPatient; // For edit mode
+    private boolean isEditMode = false;
 
     public PatientController(PatientService patientService) {
         this.patientService = patientService;
@@ -61,6 +66,62 @@ public class PatientController implements IController {
 
     public void setHomeController(HomeController homeController) {
         this.homeController = homeController;
+    }
+
+    /**
+     * Set patient for edit mode
+     */
+    public void setPatient(Patient patient) {
+        this.currentPatient = patient;
+        this.isEditMode = true;
+        loadPatientData();
+    }
+
+    /**
+     * Load patient data into form fields
+     */
+    private void loadPatientData() {
+        if (currentPatient == null) {
+            return;
+        }
+
+        log.info("Loading patient data for edit: {} {}", currentPatient.getFirstName(), currentPatient.getLastName());
+
+        // Update title for edit mode
+        if (titleText != null) {
+            titleText.setText("Editar Paciente");
+        }
+
+        firstNameField.setText(currentPatient.getFirstName());
+        lastNameField.setText(currentPatient.getLastName());
+
+        if (currentPatient.getBirthDate() != null) {
+            birthDatePicker.setValue(currentPatient.getBirthDate());
+        }
+
+        if (currentPatient.getEmail() != null) {
+            emailField.setText(currentPatient.getEmail());
+        }
+
+        if (currentPatient.getPhone() != null) {
+            phoneField.setText(currentPatient.getPhone());
+        }
+
+        if (currentPatient.getAddress() != null) {
+            addressField.setText(currentPatient.getAddress());
+        }
+
+        if (currentPatient.getCurrentWeight() != null) {
+            currentWeightField.setText(String.valueOf(currentPatient.getCurrentWeight()));
+        }
+
+        if (currentPatient.getMedicalRecordPath() != null) {
+            medicalRecordPathField.setText(currentPatient.getMedicalRecordPath());
+        }
+
+        if (currentPatient.getPhotoPath() != null) {
+            photoPathField.setText(currentPatient.getPhotoPath());
+        }
     }
 
     /**
@@ -101,7 +162,7 @@ public class PatientController implements IController {
     }
 
     /**
-     * Save the patient
+     * Save the patient (create or update)
      */
     @FXML
     public void savePatient() {
@@ -120,8 +181,9 @@ public class PatientController implements IController {
         }
 
         try {
-            // Create patient object
-            Patient patient = new Patient();
+            // Use existing patient for edit mode, or create new one
+            Patient patient = isEditMode ? currentPatient : new Patient();
+
             patient.setFirstName(firstNameField.getText().trim());
             patient.setLastName(lastNameField.getText().trim());
             patient.setBirthDate(birthDatePicker.getValue());
@@ -165,16 +227,18 @@ public class PatientController implements IController {
             // Save patient to database
             Patient savedPatient = patientService.save(patient);
 
-            log.info("Patient saved successfully: {} {} (ID: {})",
+            String action = isEditMode ? "actualizado" : "guardado";
+            log.info("Patient {} successfully: {} {} (ID: {})",
+                    action,
                     savedPatient.getFirstName(),
                     savedPatient.getLastName(),
                     savedPatient.getId());
 
             // Show success message
             showAlert(Alert.AlertType.INFORMATION, "Éxito",
-                    "Paciente guardado correctamente: " + savedPatient.getFirstName() + " " + savedPatient.getLastName());
+                    "Paciente " + action + " correctamente: " + savedPatient.getFirstName() + " " + savedPatient.getLastName());
 
-            // Go back to calendar view
+            // Go back to patient list view
             goBack();
 
         } catch (Exception e) {
@@ -193,12 +257,12 @@ public class PatientController implements IController {
     }
 
     /**
-     * Go back to calendar view
+     * Go back to patient list view
      */
     @FXML
     public void goBack() {
         if (homeController != null) {
-            homeController.showCalendarView();
+            homeController.showPatientList();
         }
     }
 }

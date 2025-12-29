@@ -18,7 +18,7 @@
     <!-- Header Section -->
     <HBox alignment="CENTER_LEFT" spacing="20">
         <Button onAction="#goBack" styleClass="back-button" text="← Volver" />
-        <Text styleClass="consultation-title" text="Nuevo Paciente" />
+        <Text fx:id="titleText" styleClass="consultation-title" text="Nuevo Paciente" />
     </HBox>
 
     <!-- Form Content in ScrollPane -->

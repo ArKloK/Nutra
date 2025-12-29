@@ -67,7 +67,17 @@ public class HomeController {
     @FXML
     public VBox patientView;
     @FXML
+    public VBox patientListView;
+    @FXML
+    public VBox patientDetailView;
+    @FXML
     public VBox recipeView;
+    @FXML
+    public VBox recipeListView;
+    @FXML
+    public VBox recipeDetailView;
+    @FXML
+    public VBox ingredientListView;
     @FXML
     public ScrollPane mondayContainer;
     @FXML
@@ -104,6 +114,7 @@ public class HomeController {
     private LocalDate currentWeekStart;
     private LocalDate selectedDateForNewConsultation;
     private Map<LocalDate, VBox> dayContainers;
+    private ContextMenu currentContextMenu;
 
     public HomeController(ApplicationContext applicationContext, ConsultationService consultationService) {
         this.applicationContext = applicationContext;
@@ -202,15 +213,136 @@ public class HomeController {
     @FXML
     public void showNewPatient() {
         try {
-            // Load patient view if not already loaded
-            if (patientView.getChildren().isEmpty()) {
-                AddContentToView("/fxml/patient.fxml", patientView);
-            }
+            // Reload patient view to get a fresh form
+            patientView.getChildren().clear();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patient.fxml"));
+            loader.setControllerFactory(applicationContext::getBean);
+            VBox patientContent = loader.load();
+
+            // Get the controller and set reference to this controller
+            PatientController controller = loader.getController();
+            controller.setHomeController(this);
+
+            // Add content to view
+            patientView.getChildren().add(patientContent);
 
             // Switch views with fade transition
             switchToView(patientView);
         } catch (IOException e) {
             log.error("Error loading patient view", e);
+        }
+    }
+
+    /**
+     * Show the edit patient form
+     */
+    public void showEditPatient(com.arklok.nutra.models.Patient patient, PatientDetailController patientDetailController) {
+        try {
+            log.info("Loading edit patient form for: {} {}", patient.getFirstName(), patient.getLastName());
+            // Reload patient view to get a fresh form
+            patientView.getChildren().clear();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patient.fxml"));
+            loader.setControllerFactory(applicationContext::getBean);
+            VBox patientContent = loader.load();
+
+            // Get the controller and set reference to this controller
+            PatientController controller = loader.getController();
+            controller.setHomeController(this);
+            controller.setPatient(patient); // Set patient for edit mode
+
+            // Add content to view
+            patientView.getChildren().add(patientContent);
+
+            // Switch views with fade transition
+            log.info("Switching to edit patient view...");
+            switchToView(patientView);
+        } catch (IOException e) {
+            log.error("Error loading edit patient view", e);
+        }
+    }
+
+    /**
+     * Show the patient list
+     */
+    @FXML
+    public void showPatientList() {
+        try {
+            log.info("Loading patient list view...");
+            // Reload patient list view to refresh data
+            patientListView.getChildren().clear();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patient_list.fxml"));
+            loader.setControllerFactory(applicationContext::getBean);
+            VBox patientListContent = loader.load();
+
+            // Get the controller and set reference to this controller
+            PatientListController controller = loader.getController();
+            controller.setHomeController(this);
+
+            // Add content to view
+            patientListView.getChildren().add(patientListContent);
+
+            // Switch views with fade transition
+            log.info("Switching to patient list view...");
+            switchToView(patientListView);
+        } catch (IOException e) {
+            log.error("Error loading patient list view", e);
+        }
+    }
+
+    /**
+     * Show the ingredient list view
+     */
+    @FXML
+    public void showIngredientList() {
+        try {
+            log.info("Loading ingredient list view...");
+            // Reload ingredient list view to refresh data
+            ingredientListView.getChildren().clear();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ingredient_list.fxml"));
+            loader.setControllerFactory(applicationContext::getBean);
+            VBox ingredientListContent = loader.load();
+
+            // Get the controller and set reference to this controller
+            IngredientListController controller = loader.getController();
+            controller.setHomeController(this);
+
+            // Add content to view
+            ingredientListView.getChildren().add(ingredientListContent);
+
+            // Switch views with fade transition
+            log.info("Switching to ingredient list view...");
+            switchToView(ingredientListView);
+        } catch (IOException e) {
+            log.error("Error loading ingredient list view", e);
+        }
+    }
+
+    /**
+     * Show the patient detail view
+     */
+    public void showPatientDetail(com.arklok.nutra.models.Patient patient, PatientListController patientListController) {
+        try {
+            log.info("Loading patient detail view for patient: {} {}", patient.getFirstName(), patient.getLastName());
+            // Reload patient detail view
+            patientDetailView.getChildren().clear();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patient_detail.fxml"));
+            loader.setControllerFactory(applicationContext::getBean);
+            VBox patientDetailContent = loader.load();
+
+            // Get the controller and set reference to this controller
+            PatientDetailController controller = loader.getController();
+            controller.setHomeController(this);
+            controller.setPatientListController(patientListController);
+            controller.setPatient(patient);
+
+            // Add content to view
+            patientDetailView.getChildren().add(patientDetailContent);
+
+            // Switch views with fade transition
+            log.info("Switching to patient detail view...");
+            switchToView(patientDetailView);
+        } catch (IOException e) {
+            log.error("Error loading patient detail view", e);
         }
     }
 
@@ -221,14 +353,98 @@ public class HomeController {
     public void showNewRecipe() {
         try {
             // Load recipe view if not already loaded
-            if (recipeView.getChildren().isEmpty()) {
-                AddContentToView("/fxml/recipe.fxml", recipeView);
-            }
+            recipeView.getChildren().clear();
+            AddContentToView("/fxml/recipe.fxml", recipeView);
 
             // Switch views with fade transition
             switchToView(recipeView);
         } catch (IOException e) {
             log.error("Error loading recipe view", e);
+        }
+    }
+
+    /**
+     * Show the recipe list view
+     */
+    @FXML
+    public void showRecipeList() {
+        try {
+            log.info("Loading recipe list view...");
+            // Reload recipe list view to refresh data
+            recipeListView.getChildren().clear();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/recipe_list.fxml"));
+            loader.setControllerFactory(applicationContext::getBean);
+            VBox recipeListContent = loader.load();
+
+            // Get the controller and set reference to this controller
+            RecipeListController controller = loader.getController();
+            controller.setHomeController(this);
+
+            // Add content to view
+            recipeListView.getChildren().add(recipeListContent);
+
+            // Switch views with fade transition
+            log.info("Switching to recipe list view...");
+            switchToView(recipeListView);
+        } catch (IOException e) {
+            log.error("Error loading recipe list view", e);
+        }
+    }
+
+    /**
+     * Show the recipe edit form
+     */
+    public void showEditRecipe(com.arklok.nutra.models.Recipe recipe) {
+        try {
+            log.info("Loading recipe edit view for recipe: {}", recipe.getTitle());
+            // Reload recipe view
+            recipeView.getChildren().clear();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/recipe.fxml"));
+            loader.setControllerFactory(applicationContext::getBean);
+            VBox recipeContent = loader.load();
+
+            // Get the controller and set the recipe for editing
+            RecipeController controller = loader.getController();
+            controller.setHomeController(this);
+            controller.setRecipeForEdit(recipe);
+
+            // Add content to view
+            recipeView.getChildren().add(recipeContent);
+
+            // Switch views with fade transition
+            log.info("Switching to recipe edit view...");
+            switchToView(recipeView);
+        } catch (IOException e) {
+            log.error("Error loading recipe edit view", e);
+        }
+    }
+
+    /**
+     * Show the recipe detail view
+     */
+    public void showRecipeDetail(com.arklok.nutra.models.Recipe recipe, RecipeListController recipeListController) {
+        try {
+            log.info("Loading recipe detail view for recipe: {}", recipe.getTitle());
+            // Reload recipe detail view
+            recipeDetailView.getChildren().clear();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/recipe_detail.fxml"));
+            loader.setControllerFactory(applicationContext::getBean);
+            VBox recipeDetailContent = loader.load();
+
+            // Get the controller and set the recipe
+            RecipeDetailController controller = loader.getController();
+            controller.setHomeController(this);
+            controller.setRecipeListController(recipeListController);
+            controller.setRecipe(recipe);
+
+            // Add content to view
+            recipeDetailView.getChildren().add(recipeDetailContent);
+
+            // Switch views with fade transition
+            log.info("Switching to recipe detail view...");
+            switchToView(recipeDetailView);
+        } catch (IOException e) {
+            log.error("Error loading recipe detail view", e);
         }
     }
 
@@ -315,8 +531,18 @@ public class HomeController {
             currentView = consultationView;
         } else if (patientView.isVisible()) {
             currentView = patientView;
+        } else if (patientListView.isVisible()) {
+            currentView = patientListView;
+        } else if (patientDetailView.isVisible()) {
+            currentView = patientDetailView;
         } else if (recipeView.isVisible()) {
             currentView = recipeView;
+        } else if (recipeListView.isVisible()) {
+            currentView = recipeListView;
+        } else if (recipeDetailView.isVisible()) {
+            currentView = recipeDetailView;
+        } else if (ingredientListView.isVisible()) {
+            currentView = ingredientListView;
         }
 
         if (currentView == targetView || currentView == null) {
@@ -410,11 +636,15 @@ public class HomeController {
      * Setup context menu for a specific day container
      */
     private void setupContextMenuForDay(ScrollPane dayContainer, int dayOffset) {
-        dayContainer.setOnMouseClicked(event -> {
-            if (event.getButton() == MouseButton.SECONDARY) {
-                LocalDate clickedDate = currentWeekStart.plusDays(dayOffset);
-                showContextMenuForDay(dayContainer, event.getScreenX(), event.getScreenY(), clickedDate);
+        dayContainer.setOnContextMenuRequested(event -> {
+            // Close any existing context menu
+            if (currentContextMenu != null && currentContextMenu.isShowing()) {
+                currentContextMenu.hide();
             }
+
+            LocalDate clickedDate = currentWeekStart.plusDays(dayOffset);
+            showContextMenuForDay(dayContainer, event.getScreenX(), event.getScreenY(), clickedDate);
+            event.consume();
         });
     }
 
@@ -433,6 +663,15 @@ public class HomeController {
         });
 
         contextMenu.getItems().add(addConsultationItem);
+
+        // Add listener to clear reference when menu is hidden
+        contextMenu.setOnHidden(_ -> {
+            if (currentContextMenu == contextMenu) {
+                currentContextMenu = null;
+            }
+        });
+
+        currentContextMenu = contextMenu;
         contextMenu.show(dayContainer, screenX, screenY);
     }
 
@@ -503,23 +742,35 @@ public class HomeController {
         card.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
                 viewConsultation(consultation);
-            } else if (event.getButton() == MouseButton.SECONDARY) {
-                // Consume the event to prevent it from propagating to parent
                 event.consume();
             }
         });
 
         // Add context menu for delete option
-        ContextMenu contextMenu = new ContextMenu();
-        contextMenu.getStyleClass().add("context-menu-calendar");
-
-        MenuItem deleteItem = new MenuItem("Eliminar");
-        deleteItem.getStyleClass().add("menu-item-delete");
-        deleteItem.setOnAction(_ -> deleteConsultation(consultation));
-        contextMenu.getItems().add(deleteItem);
-
         card.setOnContextMenuRequested(event -> {
+            // Close any existing context menu
+            if (currentContextMenu != null && currentContextMenu.isShowing()) {
+                currentContextMenu.hide();
+            }
+
+            ContextMenu contextMenu = new ContextMenu();
+            contextMenu.getStyleClass().add("context-menu-calendar");
+
+            MenuItem deleteItem = new MenuItem("Eliminar");
+            deleteItem.getStyleClass().add("menu-item-delete");
+            deleteItem.setOnAction(_ -> deleteConsultation(consultation));
+            contextMenu.getItems().add(deleteItem);
+
+            // Add listener to clear reference when menu is hidden
+            contextMenu.setOnHidden(_ -> {
+                if (currentContextMenu == contextMenu) {
+                    currentContextMenu = null;
+                }
+            });
+
+            currentContextMenu = contextMenu;
             contextMenu.show(card, event.getScreenX(), event.getScreenY());
+
             // Consume the event to prevent it from propagating to parent
             event.consume();
         });

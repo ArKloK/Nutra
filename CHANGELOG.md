@@ -10,6 +10,118 @@ All notable changes to this project will be documented in this file.
 
 <div class="version-header">
 
+## [v0.0.4-alpha] - 2025-12-29
+
+</div>
+
+<div class="section-header">
+
+### Added
+
+</div>
+
+- **Ingredient CRUD Operations**: Complete Create, Read, Update, Delete functionality for ingredients
+  - `IngredientRepository` with search by name and exact name lookup methods
+  - `IngredientService` with full transactional support and lazy-loaded collections
+  - Database persistence for all ingredient attributes including vitamins, minerals, and allergens
+- **Ingredient List View**: New management interface for viewing and managing all ingredients
+  - Search/filter functionality by ingredient name
+  - Card-based layout displaying key nutritional information (calories, protein, carbs, fat)
+  - Edit and Delete buttons on each ingredient card
+  - "New Ingredient" button to create new entries
+  - Empty state message when no ingredients found
+  - Confirmation dialog before ingredient deletion
+- **Ingredient Form Enhancements**: Support for editing existing ingredients
+  - `setIngredientForEdit()` method to load existing data
+  - Auto-population of all fields when editing (basic nutrition, vitamins, minerals, allergens)
+  - Dual mode operation (create vs. edit) with appropriate UI feedback
+  - Success/error handling with user notifications
+- **Recipe CRUD Operations**: Complete Create, Read, Update, Delete functionality for recipes
+  - `RecipeRepository` with search by title methods
+  - `RecipeService` with full transactional support and eager loading of ingredients
+  - Database persistence for recipes including all ingredients via `RecipeIngredient` relationship
+  - Cascade save operations for recipe ingredients
+- **Recipe List View**: New management interface for viewing and managing all recipes
+  - Search/filter functionality by recipe title
+  - Card-based layout displaying title, description, preparation time, and ingredient count
+  - View Details, Edit, and Delete buttons on each recipe card
+  - "New Recipe" button to create new entries
+  - Empty state message when no recipes found
+  - Confirmation dialog before recipe deletion
+- **Recipe Form Enhancements**: Support for editing existing recipes
+  - `setRecipeForEdit()` method to load existing recipe data
+  - Auto-population of all fields when editing (title, description, time, ingredients, instructions, notes)
+  - Dual mode operation (create vs. edit) with appropriate UI feedback
+  - Ingredient ComboBox loaded from database with custom cell factories
+  - Dynamic ingredients table with add/remove functionality
+  - Integration with ingredient creation workflow
+  - Complete field validation and error handling
+- **Navigation Integration**: 
+  - "Recetas" menu button now opens recipe list instead of directly creating a new recipe
+  - New "Ingredientes" menu option in home view
+  - Added to top menu bar alongside Consultas, Recetas, and Pacientes
+  - Smooth view transitions using existing fade animation system
+  - Proper view lifecycle management for all CRUD operations
+- **Table Styling Improvements**: Enhanced ingredients table appearance
+  - Uniform white background for all filled rows (removed alternating colors)
+  - Dynamic row visibility - empty rows completely hidden
+  - Border lines only appear on rows with content
+  - Consistent styling when adding/removing ingredients
+  - Improved focus preservation when deleting allergens or vitamin/mineral entries
+
+<div class="section-header">
+
+### Changed
+
+</div>
+
+- **IngredientController**: Refactored to use dependency injection with `IngredientService`
+  - Added support for both create and edit modes
+  - Enhanced data loading methods for editing existing ingredients
+  - Improved error handling and logging
+- **RecipeController**: Refactored to use dependency injection with `RecipeService` and `IngredientService`
+  - Added support for both create and edit modes
+  - Enhanced data loading methods for editing existing recipes
+  - Ingredients now loaded from database instead of empty list
+  - Improved validation and error handling with user-friendly dialogs
+  - Success confirmation messages when saving recipes
+- **HomeController**: Extended view management system
+  - Added `recipeListView` field and view switching support
+  - Added `showRecipeList()` method to display recipe list
+  - Added `showEditRecipe()` method to edit existing recipes
+  - Updated `switchToView()` to include recipe list view
+  - Refactored `showNewRecipe()` to always reload recipe form for clean state
+
+<div class="section-header">
+
+### Fixed
+
+</div>
+
+- Fixed color inconsistency issue when deleting ingredients from table
+- Fixed focus behavior when removing allergens, vitamins, or minerals from forms
+- Fixed table row styling to prevent rows from maintaining old position-based colors
+- **Ingredient Persistence Issues**: Corrected JPA relationship cascade and collection handling
+  - Removed problematic `CascadeType.ALL` and `orphanRemoval` from `RecipeIngredient` relationship
+  - Added null-safety checks for collections (vitamins, minerals, allergens) before saving
+  - Enhanced error handling with user-friendly error dialogs
+  - Improved validation for required fields in ingredient form
+- **LazyInitializationException**: Fixed Hibernate lazy loading issue when displaying ingredients
+  - Added `findAllWithDetails()` and `searchByNameWithDetails()` methods in `IngredientService`
+  - Collections (vitamins, minerals, allergens) now loaded eagerly within transaction scope
+  - Prevents "no Session" error when accessing lazy-loaded collections in UI layer
+- **Navigation from Ingredient List**: Fixed menu buttons not responding in ingredient list view
+  - Added `ingredientListView` to the list of checked views in `switchToView()` method
+  - Menu buttons (Consultas, Recetas, Pacientes) now work correctly from ingredient list view
+- **Recipe Lazy Loading**: Fixed Hibernate lazy loading issue when displaying recipes
+  - Added `findAllWithDetails()` and `searchByTitleWithDetails()` methods in `RecipeService`
+  - Recipe ingredients and their associated ingredient entities now loaded eagerly
+  - Prevents "no Session" error when accessing recipe ingredients in UI layer
+
+---
+
+<div class="version-header">
+
 ## [v0.0.3-alpha] - 2025-12-10
 
 </div>
@@ -29,8 +141,8 @@ All notable changes to this project will be documented in this file.
   - Consultation cards displayed on their scheduled days
   - Cards show time (HH:mm), patient name, and consultation reason
 - **Consultation Cards**: Visual cards with hover effects and context menu
-  - Click izquierdo opens consultation details (pending implementation)
-  - Click derecho shows "Eliminar" option with confirmation dialog
+  - Left click opens consultation details (pending implementation)
+  - Right click shows "Eliminar" option with confirmation dialog
   - Auto-adjusting text wrapping based on container width
   - Smooth shadow effects and responsive scaling
 - **Consultation Form Enhancements**: 

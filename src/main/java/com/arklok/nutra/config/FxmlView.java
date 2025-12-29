@@ -41,6 +41,13 @@ public enum FxmlView {
         public String getFxmlPath() {
             return "/fxml/scales-theory.fxml";
         }
+    },
+
+    INGREDIENT_LIST {
+        @Override
+        public String getFxmlPath() {
+            return "/fxml/ingredient_list.fxml";
+        }
     };
 
     public abstract String getFxmlPath();

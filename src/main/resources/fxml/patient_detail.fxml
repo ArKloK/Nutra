@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="926.0" prefWidth="1465.0" spacing="25" styleClass="consultation-form-container" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.arklok.nutra.controllers.PatientDetailController">
+    <padding>
+        <Insets bottom="40" left="40" right="40" top="40" />
+    </padding>
+
+    <!-- Header Section -->
+    <HBox alignment="CENTER_LEFT" spacing="20">
+        <Button onAction="#goBack" styleClass="back-button" text="← Volver" />
+        <Text fx:id="patientNameTitle" styleClass="consultation-title" text="Detalles del Paciente" />
+        <HBox HBox.hgrow="ALWAYS" />
+        <Button onAction="#editPatient" styleClass="secondary-button" text="✎ Editar" />
+    </HBox>
+
+    <!-- Content in ScrollPane -->
+    <ScrollPane fitToWidth="true" styleClass="consultation-scroll" VBox.vgrow="ALWAYS">
+        <VBox spacing="25">
+            <padding>
+                <Insets bottom="20" left="10" right="10" top="10" />
+            </padding>
+
+            <!-- Photo and Basic Info Section -->
+            <HBox spacing="30" styleClass="form-section">
+                <VBox alignment="TOP_CENTER" spacing="10">
+                    <ImageView fx:id="patientPhoto" fitHeight="200" fitWidth="200" preserveRatio="true" styleClass="patient-photo" />
+                </VBox>
+
+                <VBox spacing="15" HBox.hgrow="ALWAYS">
+                    <Text styleClass="section-subtitle" text="Información Personal" />
+
+                    <HBox spacing="10">
+                        <Label styleClass="detail-label" text="Nombre Completo:" />
+                        <Text fx:id="fullNameText" styleClass="detail-value" />
+                    </HBox>
+
+                    <HBox spacing="10">
+                        <Label styleClass="detail-label" text="Fecha de Nacimiento:" />
+                        <Text fx:id="birthDateText" styleClass="detail-value" />
+                    </HBox>
+
+                    <HBox spacing="10">
+                        <Label styleClass="detail-label" text="Edad:" />
+                        <Text fx:id="ageText" styleClass="detail-value" />
+                    </HBox>
+                </VBox>
+            </HBox>
+
+            <Separator />
+
+            <!-- Contact Information Section -->
+            <VBox spacing="15" styleClass="form-section">
+                <Text styleClass="section-subtitle" text="Información de Contacto" />
+
+                <HBox spacing="10">
+                    <Label styleClass="detail-label" text="Email:" />
+                    <Text fx:id="emailText" styleClass="detail-value" />
+                </HBox>
+
+                <HBox spacing="10">
+                    <Label styleClass="detail-label" text="Teléfono:" />
+                    <Text fx:id="phoneText" styleClass="detail-value" />
+                </HBox>
+
+                <HBox spacing="10">
+                    <Label styleClass="detail-label" text="Dirección:" />
+                    <Text fx:id="addressText" styleClass="detail-value" wrappingWidth="600" />
+                </HBox>
+            </VBox>
+
+            <Separator />
+
+            <!-- Medical Information Section -->
+            <VBox spacing="15" styleClass="form-section">
+                <Text styleClass="section-subtitle" text="Información Médica" />
+
+                <HBox spacing="10">
+                    <Label styleClass="detail-label" text="Peso Actual:" />
+                    <Text fx:id="weightText" styleClass="detail-value" />
+                </HBox>
+
+                <HBox spacing="10">
+                    <Label styleClass="detail-label" text="Historial Médico:" />
+                    <Text fx:id="medicalRecordText" styleClass="detail-value" />
+                </HBox>
+            </VBox>
+
+            <Separator />
+
+            <!-- Consultations Section -->
+            <VBox spacing="15" styleClass="form-section">
+                <Text styleClass="section-subtitle" text="Consultas" />
+
+                <VBox fx:id="consultationsContainer" spacing="10">
+                    <Text styleClass="detail-value" text="Sin consultas registradas" />
+                </VBox>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+</VBox>
+

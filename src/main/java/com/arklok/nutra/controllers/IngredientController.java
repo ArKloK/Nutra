@@ -1,7 +1,9 @@
 package com.arklok.nutra.controllers;
 
 import com.arklok.nutra.enums.Allergen;
+import com.arklok.nutra.interfaces.IController;
 import com.arklok.nutra.models.Ingredient;
+import com.arklok.nutra.services.IngredientService;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -9,7 +11,6 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
@@ -32,9 +33,11 @@ import java.util.Set;
 import static javafx.geometry.Pos.CENTER_LEFT;
 
 @Component
-public class IngredientController{
+public class IngredientController implements IController {
 
     private static final Logger log = LoggerFactory.getLogger(IngredientController.class);
+
+    private final IngredientService ingredientService;
 
     @FXML
     private TextField nameField;
@@ -76,16 +79,27 @@ public class IngredientController{
     private VBox allergensContainer;
 
     private Ingredient createdIngredient;
+    private Ingredient editingIngredient;
     private boolean saved = false;
+    private boolean isEditMode = false;
 
     private final List<VitaminMineralEntry> vitaminEntries = new ArrayList<>();
     private final List<VitaminMineralEntry> mineralEntries = new ArrayList<>();
     private final List<Allergen> selectedAllergens = new ArrayList<>();
+    private HomeController homeController;
+
+    public IngredientController(IngredientService ingredientService) {
+        this.ingredientService = ingredientService;
+    }
 
     public void initialize() {
         log.info("Ingredient controller initialized");
         loadAllergens();
         setupAllergenComboBox();
+    }
+
+    public void setHomeController(HomeController homeController) {
+        this.homeController = homeController;
     }
 
     /**
@@ -327,19 +341,19 @@ public class IngredientController{
             return;
         }
 
-        // Create ingredient object
-        createdIngredient = new Ingredient();
-        createdIngredient.setName(nameField.getText().trim());
+        // Create or update ingredient object
+        Ingredient ingredient = isEditMode && editingIngredient != null ? editingIngredient : new Ingredient();
+        ingredient.setName(nameField.getText().trim());
 
         // Set numeric fields (with null safety)
-        createdIngredient.setCalories(parseDouble(caloriesField.getText()));
-        createdIngredient.setCarbohydrates(parseDouble(carbohydratesField.getText()));
-        createdIngredient.setSugar(parseDouble(sugarField.getText()));
-        createdIngredient.setProtein(parseDouble(proteinField.getText()));
-        createdIngredient.setFiber(parseDouble(fiberField.getText()));
-        createdIngredient.setFat(parseDouble(fatField.getText()));
-        createdIngredient.setSaturatedFat(parseDouble(saturatedFatField.getText()));
-        createdIngredient.setUnsaturatedFat(parseDouble(unsaturatedFatField.getText()));
+        ingredient.setCalories(parseDouble(caloriesField.getText()));
+        ingredient.setCarbohydrates(parseDouble(carbohydratesField.getText()));
+        ingredient.setSugar(parseDouble(sugarField.getText()));
+        ingredient.setProtein(parseDouble(proteinField.getText()));
+        ingredient.setFiber(parseDouble(fiberField.getText()));
+        ingredient.setFat(parseDouble(fatField.getText()));
+        ingredient.setSaturatedFat(parseDouble(saturatedFatField.getText()));
+        ingredient.setUnsaturatedFat(parseDouble(unsaturatedFatField.getText()));
 
         // Set vitamins
         Map<String, Float> vitamins = new HashMap<>();
@@ -354,7 +368,7 @@ public class IngredientController{
                 }
             }
         }
-        createdIngredient.setVitamins(vitamins);
+        ingredient.setVitamins(vitamins);
 
         // Set minerals
         Map<String, Float> minerals = new HashMap<>();
@@ -369,15 +383,23 @@ public class IngredientController{
                 }
             }
         }
-        createdIngredient.setMinerals(minerals);
+        ingredient.setMinerals(minerals);
 
         // Set allergens
         Set<Allergen> allergens = new HashSet<>(selectedAllergens);
-        createdIngredient.setAllergens(allergens);
+        ingredient.setAllergens(allergens);
 
-        log.info("Ingredient created: {}", createdIngredient.getName());
-        saved = true;
-        closeWindow();
+        // Persist to database
+        try {
+            createdIngredient = ingredientService.save(ingredient);
+            log.info("Ingredient {} successfully: {}", isEditMode ? "updated" : "created", createdIngredient.getName());
+            saved = true;
+            goBack();
+        } catch (Exception e) {
+            log.error("Error saving ingredient: {}", e.getMessage(), e);
+            showError("Error al guardar ingrediente",
+                     "No se pudo guardar el ingrediente. Detalles: " + e.getMessage());
+        }
     }
 
     /**
@@ -387,15 +409,16 @@ public class IngredientController{
     public void cancelIngredient() {
         saved = false;
         createdIngredient = null;
-        closeWindow();
+        goBack();
     }
 
     /**
      * Close the ingredient window
      */
-    private void closeWindow() {
-        Stage stage = (Stage) nameField.getScene().getWindow();
-        stage.close();
+    private void goBack() {
+        if (homeController != null) {
+            homeController.showPatientList();
+        }
     }
 
     /**
@@ -424,6 +447,116 @@ public class IngredientController{
      */
     public Ingredient getCreatedIngredient() {
         return createdIngredient;
+    }
+
+    /**
+     * Set ingredient for editing mode
+     */
+    public void setIngredientForEdit(Ingredient ingredient) {
+        if (ingredient == null) {
+            log.warn("Cannot edit null ingredient");
+            return;
+        }
+
+        this.editingIngredient = ingredient;
+        this.isEditMode = true;
+        loadIngredientData(ingredient);
+    }
+
+    /**
+     * Load ingredient data into form fields
+     */
+    private void loadIngredientData(Ingredient ingredient) {
+        // Load basic fields
+        nameField.setText(ingredient.getName());
+        caloriesField.setText(ingredient.getCalories() != null ? ingredient.getCalories().toString() : "");
+        carbohydratesField.setText(ingredient.getCarbohydrates() != null ? ingredient.getCarbohydrates().toString() : "");
+        sugarField.setText(ingredient.getSugar() != null ? ingredient.getSugar().toString() : "");
+        proteinField.setText(ingredient.getProtein() != null ? ingredient.getProtein().toString() : "");
+        fiberField.setText(ingredient.getFiber() != null ? ingredient.getFiber().toString() : "");
+        fatField.setText(ingredient.getFat() != null ? ingredient.getFat().toString() : "");
+        saturatedFatField.setText(ingredient.getSaturatedFat() != null ? ingredient.getSaturatedFat().toString() : "");
+        unsaturatedFatField.setText(ingredient.getUnsaturatedFat() != null ? ingredient.getUnsaturatedFat().toString() : "");
+
+        // Load vitamins
+        if (ingredient.getVitamins() != null) {
+            for (Map.Entry<String, Float> entry : ingredient.getVitamins().entrySet()) {
+                VitaminMineralEntry vitaminEntry = createVitaminMineralEntry(vitaminsContainer, vitaminEntries);
+                vitaminEntry.nameField.setText(entry.getKey());
+                vitaminEntry.valueField.setText(entry.getValue().toString());
+                vitaminEntries.add(vitaminEntry);
+            }
+        }
+
+        // Load minerals
+        if (ingredient.getMinerals() != null) {
+            for (Map.Entry<String, Float> entry : ingredient.getMinerals().entrySet()) {
+                VitaminMineralEntry mineralEntry = createVitaminMineralEntry(mineralsContainer, mineralEntries);
+                mineralEntry.nameField.setText(entry.getKey());
+                mineralEntry.valueField.setText(entry.getValue().toString());
+                mineralEntries.add(mineralEntry);
+            }
+        }
+
+        // Load allergens
+        if (ingredient.getAllergens() != null) {
+            for (Allergen allergen : ingredient.getAllergens()) {
+                addAllergenToList(allergen);
+            }
+        }
+    }
+
+    /**
+     * Delete an ingredient by id
+     */
+    public void deleteIngredient(Long ingredientId) {
+        if (ingredientId == null) {
+            log.warn("Cannot delete ingredient with null id");
+            return;
+        }
+
+        try {
+            ingredientService.deleteById(ingredientId);
+            log.info("Ingredient with id {} successfully deleted", ingredientId);
+        } catch (Exception e) {
+            log.error("Error deleting ingredient: {}", e.getMessage(), e);
+            throw new RuntimeException("Error deleting ingredient", e);
+        }
+    }
+
+    /**
+     * Get all ingredients from database
+     */
+    public List<Ingredient> getAllIngredients() {
+        return ingredientService.findAll();
+    }
+
+    /**
+     * Search ingredients by name
+     */
+    public List<Ingredient> searchIngredients(String searchTerm) {
+        if (searchTerm == null || searchTerm.trim().isEmpty()) {
+            return getAllIngredients();
+        }
+        return ingredientService.searchByName(searchTerm.trim());
+    }
+
+    /**
+     * Find ingredient by id with all details loaded
+     */
+    public Ingredient findIngredientById(Long id) {
+        return ingredientService.findByIdWithDetails(id).orElse(null);
+    }
+
+    /**
+     * Show error dialog
+     */
+    private void showError(String title, String message) {
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     /**

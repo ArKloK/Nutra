@@ -2,11 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -20,26 +16,12 @@
 
     <!-- Menu Bar Superior -->
     <top>
-        <MenuBar styleClass="menu-bar-custom">
-            <Menu styleClass="menu-custom" text="Consultas">
-                <MenuItem onAction="#showNewConsultation" text="Nueva Consulta" />
-                <MenuItem onAction="#showCalendarView" text="Ver Todas" />
-                <SeparatorMenuItem />
-                <MenuItem text="Buscar..." />
-            </Menu>
-            <Menu styleClass="menu-custom" text="Recetas">
-                <MenuItem onAction="#showNewRecipe" text="Nueva Receta" />
-                <MenuItem text="Ver Todas" />
-                <SeparatorMenuItem />
-                <MenuItem text="Buscar..." />
-            </Menu>
-            <Menu styleClass="menu-custom" text="Pacientes">
-                <MenuItem onAction="#showNewPatient" text="Nuevo Paciente" />
-                <MenuItem text="Ver Todos" />
-                <SeparatorMenuItem />
-                <MenuItem text="Buscar..." />
-            </Menu>
-        </MenuBar>
+        <HBox styleClass="menu-bar-custom" alignment="CENTER_LEFT">
+            <Button styleClass="menu-button" text="Consultas" onAction="#showCalendarView" />
+            <Button styleClass="menu-button" text="Recetas" onAction="#showRecipeList" />
+            <Button styleClass="menu-button" text="Pacientes" onAction="#showPatientList" />
+            <Button styleClass="menu-button" text="Ingredientes" onAction="#showIngredientList" />
+        </HBox>
     </top>
 
     <!-- Central container with StackPane to switch between views -->
@@ -176,8 +158,23 @@
             <!-- Patient View (loaded dynamically) -->
             <VBox fx:id="patientView" managed="false" visible="false" />
 
+            <!-- Patient List View (loaded dynamically) -->
+            <VBox fx:id="patientListView" managed="false" visible="false" />
+
+            <!-- Patient Detail View (loaded dynamically) -->
+            <VBox fx:id="patientDetailView" managed="false" visible="false" />
+
             <!-- Recipe View (loaded dynamically) -->
             <VBox fx:id="recipeView" managed="false" visible="false" />
+
+            <!-- Recipe List View (loaded dynamically) -->
+            <VBox fx:id="recipeListView" managed="false" visible="false" />
+
+            <!-- Recipe Detail View (loaded dynamically) -->
+            <VBox fx:id="recipeDetailView" managed="false" visible="false" />
+
+            <!-- Ingredient List View (loaded dynamically) -->
+            <VBox fx:id="ingredientListView" managed="false" visible="false" />
         </StackPane>
     </center>
 </BorderPane>

@@ -22,57 +22,27 @@
     -fx-padding: 0;
 }
 
-.menu-bar-custom .label {
+/* Menu Button Styles */
+.menu-button {
+    -fx-background-color: transparent;
     -fx-text-fill: #CDCDC0;
     -fx-font-size: 14px;
     -fx-font-weight: 500;
+    -fx-padding: 10 20 10 20;
+    -fx-cursor: hand;
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
 }
 
-.menu-bar-custom .menu:hover {
+.menu-button:hover {
     -fx-background-color: #7a8589;
 }
 
-.menu-bar-custom .menu:showing {
-    -fx-background-color: #7a8589;
-}
-
-/* Individual Menu */
-.menu-custom {
-    -fx-background-color: transparent;
-    -fx-padding: 8 15 8 15;
-}
-
-.menu-custom .label {
-    -fx-text-fill: #CDCDC0;
-    -fx-font-size: 14px;
-    -fx-font-weight: 500;
-}
-
-/* Context Menu Items */
-.menu-bar-custom .context-menu {
-    -fx-background-color: #626D71;
-    -fx-border-color: #B38867;
-    -fx-border-width: 1px;
-}
-
-.menu-bar-custom .menu-item {
-    -fx-background-color: transparent;
-    -fx-text-fill: #CDCDC0;
-}
-
-.menu-bar-custom .menu-item:focused {
+.menu-button:pressed {
     -fx-background-color: #DDBC95;
     -fx-text-fill: #626D71;
 }
 
-.menu-bar-custom .menu-item:hover {
-    -fx-background-color: #DDBC95;
-    -fx-text-fill: #626D71;
-}
-
-.menu-bar-custom .menu-item .label {
-    -fx-text-fill: inherit;
-}
 
 /* Main content */
 .main-content {
@@ -324,6 +294,13 @@
     -fx-font-weight: 500;
 }
 
+/* Detail text for read-only views */
+.detail-text {
+    -fx-font-size: 14px;
+    -fx-fill: #626D71;
+    -fx-line-spacing: 1.5;
+}
+
 /* Form controls (TextFields, ComboBox, DatePicker) */
 .form-control {
     -fx-background-color: #FFFFFF;
@@ -518,7 +495,7 @@
 
 /* Ingredients table */
 .ingredients-table {
-    -fx-background-color: transparent;
+    -fx-background-color: #FFFFFF;
     -fx-border-color: #B38867;
     -fx-border-width: 1px;
     -fx-border-radius: 5px;
@@ -540,25 +517,47 @@
 
 .ingredients-table .table-cell {
     -fx-text-fill: #626D71;
-    -fx-border-color: #DDBC95;
-    -fx-border-width: 0 0 1px 0;
     -fx-padding: 8 10 8 10;
+    -fx-border-width: 0;
 }
 
 .ingredients-table .table-row-cell {
     -fx-background-color: #FFFFFF;
+    -fx-cell-size: 40;
 }
 
-.ingredients-table .table-row-cell:odd {
-    -fx-background-color: rgba(221, 188, 149, 0.1);
+.ingredients-table .table-row-cell:empty {
+    -fx-background-color: transparent;
+    -fx-pref-height: 0;
+    -fx-min-height: 0;
+    -fx-max-height: 0;
+}
+
+.ingredients-table .table-row-cell:empty .table-cell {
+    -fx-border-width: 0;
+    -fx-pref-height: 0;
+    -fx-min-height: 0;
+}
+
+.ingredients-table .table-row-cell:filled {
+    -fx-background-color: #FFFFFF;
+}
+
+.ingredients-table .table-row-cell:filled .table-cell {
+    -fx-border-color: #DDBC95;
+    -fx-border-width: 0 0 1px 0;
 }
 
 .ingredients-table .table-row-cell:selected {
     -fx-background-color: #DDBC95;
 }
 
-.ingredients-table .table-row-cell:hover {
-    -fx-background-color: rgba(179, 136, 103, 0.1);
+.ingredients-table .table-row-cell:selected .table-cell {
+    -fx-border-color: #B38867;
+}
+
+.ingredients-table .table-row-cell:filled:hover {
+    -fx-background-color: rgba(221, 188, 149, 0.2);
 }
 
 /* Remove button */
@@ -628,3 +627,44 @@
 .custom-alert .button:default:hover {
     -fx-background-color: #9a7559;
 }
+
+/* ========== PATIENT CARD ========== */
+
+.patient-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 8px;
+    -fx-border-color: #B38867;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(98, 109, 113, 0.15), 8, 0, 0, 2);
+}
+
+.patient-card:hover {
+    -fx-border-color: #DDBC95;
+    -fx-effect: dropshadow(gaussian, rgba(98, 109, 113, 0.25), 12, 0, 0, 3);
+}
+
+/* Patient photo styles */
+.patient-photo {
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);
+}
+
+.patient-photo-placeholder {
+    -fx-background-color: #000000;
+    -fx-background-radius: 8px;
+}
+
+/* Detail labels and values */
+.detail-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #626D71;
+}
+
+.detail-value {
+    -fx-font-size: 14px;
+    -fx-fill: #626D71;
+}
+
+

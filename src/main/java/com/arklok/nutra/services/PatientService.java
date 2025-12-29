@@ -33,6 +33,18 @@ public class PatientService {
     }
 
     /**
+     * Find a patient by id with consultations loaded
+     */
+    public Optional<Patient> findByIdWithConsultations(Long id) {
+        Optional<Patient> patientOpt = patientRepository.findById(id);
+        patientOpt.ifPresent(patient -> {
+            // Force load consultations within transaction
+            patient.getConsultations().size();
+        });
+        return patientOpt;
+    }
+
+    /**
      * Find all patients
      */
     public List<Patient> findAll() {

@@ -4,6 +4,8 @@ import com.arklok.nutra.interfaces.IController;
 import com.arklok.nutra.models.Ingredient;
 import com.arklok.nutra.models.Recipe;
 import com.arklok.nutra.models.RecipeIngredient;
+import com.arklok.nutra.services.IngredientService;
+import com.arklok.nutra.services.RecipeService;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -64,22 +66,45 @@ public class RecipeController implements IController {
 
     private HomeController homeController;
     private final ApplicationContext applicationContext;
+    private final RecipeService recipeService;
+    private final IngredientService ingredientService;
 
     private final ObservableList<RecipeIngredientRow> ingredientRows = FXCollections.observableArrayList();
     private final ObservableList<Ingredient> availableIngredients = FXCollections.observableArrayList();
 
-    public RecipeController(ApplicationContext applicationContext) {
+    private Recipe editingRecipe;
+    private boolean isEditMode = false;
+
+    public RecipeController(ApplicationContext applicationContext,
+                          RecipeService recipeService,
+                          IngredientService ingredientService) {
         this.applicationContext = applicationContext;
+        this.recipeService = recipeService;
+        this.ingredientService = ingredientService;
     }
 
     public void initialize() {
         log.info("Recipe controller initialized");
         setupIngredientsTable();
         setupIngredientComboBox();
+        loadIngredientsFromDatabase();
     }
 
     public void setHomeController(HomeController homeController) {
         this.homeController = homeController;
+    }
+
+    /**
+     * Load ingredients from database
+     */
+    private void loadIngredientsFromDatabase() {
+        try {
+            availableIngredients.clear();
+            availableIngredients.addAll(ingredientService.findAll());
+            log.info("Loaded {} ingredients from database", availableIngredients.size());
+        } catch (Exception e) {
+            log.error("Error loading ingredients from database", e);
+        }
     }
 
     /**
@@ -89,8 +114,30 @@ public class RecipeController implements IController {
         ingredientComboBox.setItems(availableIngredients);
         ingredientComboBox.setPromptText("Elegir ingrediente...");
 
-        // TODO: Load ingredients from database
-        // For now, the list starts empty
+        // Custom cell factory to display ingredient names
+        ingredientComboBox.setCellFactory(listView -> new ListCell<>() {
+            @Override
+            protected void updateItem(Ingredient item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getName());
+                }
+            }
+        });
+
+        ingredientComboBox.setButtonCell(new ListCell<>() {
+            @Override
+            protected void updateItem(Ingredient item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getName());
+                }
+            }
+        });
     }
 
     /**
@@ -274,13 +321,15 @@ public class RecipeController implements IController {
 
             log.warn("Required fields are missing");
             Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Campos Requeridos");
+            alert.setHeaderText(null);
             alert.setContentText("Por favor, completa todos los campos obligatorios (Título e Instrucciones).");
             alert.showAndWait();
             return;
         }
 
-        // Create recipe object
-        Recipe recipe = new Recipe();
+        // Create or update recipe object
+        Recipe recipe = isEditMode && editingRecipe != null ? editingRecipe : new Recipe();
         recipe.setTitle(titleField.getText().trim());
         recipe.setDescription(descriptionArea.getText().trim());
         recipe.setInstructions(instructionsArea.getText().trim());
@@ -290,9 +339,22 @@ public class RecipeController implements IController {
         try {
             if (!timeField.getText().trim().isEmpty()) {
                 recipe.setTimeMinutes(Integer.parseInt(timeField.getText().trim()));
+            } else {
+                recipe.setTimeMinutes(null);
             }
         } catch (NumberFormatException e) {
             log.warn("Invalid time value");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Tiempo Inválido");
+            alert.setHeaderText(null);
+            alert.setContentText("El tiempo de preparación debe ser un número entero.");
+            alert.showAndWait();
+            return;
+        }
+
+        // Clear existing ingredients if editing
+        if (isEditMode) {
+            recipe.getIngredients().clear();
         }
 
         // Add ingredients
@@ -305,11 +367,27 @@ public class RecipeController implements IController {
             recipe.addIngredient(ri);
         }
 
-        // TODO: Save recipe to database
-        log.info("Recipe saved: {}", recipe.getTitle());
+        // Persist to database
+        try {
+            Recipe savedRecipe = recipeService.save(recipe);
+            log.info("Recipe {} successfully: {}", isEditMode ? "updated" : "created", savedRecipe.getTitle());
 
-        // Go back
-        goBack();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Receta Guardada");
+            alert.setHeaderText(null);
+            alert.setContentText("La receta \"" + savedRecipe.getTitle() + "\" se ha guardado correctamente.");
+            alert.showAndWait();
+
+            // Go back
+            goBack();
+        } catch (Exception e) {
+            log.error("Error saving recipe: {}", e.getMessage(), e);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error al Guardar");
+            alert.setHeaderText(null);
+            alert.setContentText("No se pudo guardar la receta. Detalles: " + e.getMessage());
+            alert.showAndWait();
+        }
     }
 
     /**
@@ -327,6 +405,46 @@ public class RecipeController implements IController {
     public void goBack() {
         if (homeController != null) {
             homeController.showCalendarView();
+        }
+    }
+
+    /**
+     * Set recipe for editing mode
+     */
+    public void setRecipeForEdit(Recipe recipe) {
+        if (recipe == null) {
+            log.warn("Cannot edit null recipe");
+            return;
+        }
+
+        this.editingRecipe = recipe;
+        this.isEditMode = true;
+        loadRecipeData(recipe);
+    }
+
+    /**
+     * Load recipe data into form fields
+     */
+    private void loadRecipeData(Recipe recipe) {
+        // Load basic fields
+        titleField.setText(recipe.getTitle());
+        descriptionArea.setText(recipe.getDescription() != null ? recipe.getDescription() : "");
+        instructionsArea.setText(recipe.getInstructions());
+        notesArea.setText(recipe.getNotes() != null ? recipe.getNotes() : "");
+        timeField.setText(recipe.getTimeMinutes() != null ? recipe.getTimeMinutes().toString() : "");
+
+        // Load ingredients
+        ingredientRows.clear();
+        if (recipe.getIngredients() != null) {
+            for (RecipeIngredient ri : recipe.getIngredients()) {
+                RecipeIngredientRow row = new RecipeIngredientRow(
+                    ri.getIngredient(),
+                    ri.getAmount(),
+                    ri.getUnit(),
+                    ri.getNotes() != null ? ri.getNotes() : ""
+                );
+                ingredientRows.add(row);
+            }
         }
     }
 

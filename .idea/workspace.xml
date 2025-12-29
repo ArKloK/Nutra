@@ -4,24 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dbc76a8a-6e3f-4cd6-b762-467a45439b9b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/enums/Allergen.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/helpers/ControllersHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/repositories/ConsultationRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/repositories/PatientRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/services/ConsultationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/services/PatientService.java" afterDir="false" />
+    <list default="true" id="dbc76a8a-6e3f-4cd6-b762-467a45439b9b" name="Changes" comment="Version 0.0.4-alpha.&#10;Implement CRUD functionality for ingredients and recipes; add ingredient and recipe list views with search capabilities; enhance patient detail and edit features.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/IngredientListController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/PatientDetailController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/PatientListController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/RecipeDetailController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/RecipeListController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/repositories/IngredientRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/repositories/RecipeRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/services/IngredientService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/services/RecipeService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/ingredient_list.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/patient_detail.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/patient_list.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/recipe_detail.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/recipe_list.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/ConsultationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/ConsultationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/config/FxmlView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/config/FxmlView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/HomeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/IngredientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/IngredientController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/PatientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/PatientController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/RecipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/RecipeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/models/Ingredient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/models/Ingredient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/services/PatientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/services/PatientService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/consultation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/consultation.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/home.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/home.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/ingredient.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/ingredient.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/patient.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/patient.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/styles/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,8 +74,12 @@
       </MavenGeneralSettings>
     </option>
   </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -88,6 +101,7 @@
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -122,8 +136,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-cffe25b9f5b3-intellij.indexing.shared.core-IU-253.28294.334" />
-        <option value="bundled-js-predefined-d6986cc7102b-c7e53b3be11b-JavaScript-IU-253.28294.334" />
+        <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.138" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.29346.138" />
       </set>
     </attachedChunks>
   </component>
@@ -163,7 +177,11 @@
       <workItem from="1764692887679" duration="96000" />
       <workItem from="1764693031412" duration="1578000" />
       <workItem from="1765388083417" duration="104000" />
-      <workItem from="1765388295777" duration="8211000" />
+      <workItem from="1765388295777" duration="8359000" />
+      <workItem from="1765643314708" duration="31000" />
+      <workItem from="1765643362017" duration="4379000" />
+      <workItem from="1767004164183" duration="95000" />
+      <workItem from="1767004318720" duration="8114000" />
     </task>
     <task id="LOCAL-00001" summary="Setting up application">
       <option name="closed" value="true" />
@@ -221,7 +239,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762367467423</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="- Add persistence layer (repositories and services for consultations and patients)&#10;- Implement interactive calendar with right-click context menus&#10;- Create visual consultation cards with hover effects and deletion option&#10;- Integrate patient database save with field validations&#10;- Add hour/minute spinners to consultation form&#10;- Implement custom styles for context menus (new consultation and delete)&#10;- Fix card width overflow and event propagation issues&#10;- Update CHANGELOG with all modifications">
+      <option name="closed" value="true" />
+      <created>1765396609401</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1765396609401</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -237,7 +263,9 @@
     <MESSAGE value="Changed git main folder" />
     <MESSAGE value="Added license" />
     <MESSAGE value="Created views recipe.fxml, patient.fxml, and ingredient.fxml.&#10;Created controllers IngredientController, PatientController and RecipeController.&#10;Created IController to assign to controllers that opens panel over home.fxml&#10;Added new functionality to home.fxml and consultation.fxml" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created views recipe.fxml, patient.fxml, and ingredient.fxml.&#10;Created controllers IngredientController, PatientController and RecipeController.&#10;Created IController to assign to controllers that opens panel over home.fxml&#10;Added new functionality to home.fxml and consultation.fxml" />
+    <MESSAGE value="- Add persistence layer (repositories and services for consultations and patients)&#10;- Implement interactive calendar with right-click context menus&#10;- Create visual consultation cards with hover effects and deletion option&#10;- Integrate patient database save with field validations&#10;- Add hour/minute spinners to consultation form&#10;- Implement custom styles for context menus (new consultation and delete)&#10;- Fix card width overflow and event propagation issues&#10;- Update CHANGELOG with all modifications" />
+    <MESSAGE value="Version 0.0.4-alpha.&#10;Implement CRUD functionality for ingredients and recipes; add ingredient and recipe list views with search capabilities; enhance patient detail and edit features." />
+    <option name="LAST_COMMIT_MESSAGE" value="Version 0.0.4-alpha.&#10;Implement CRUD functionality for ingredients and recipes; add ingredient and recipe list views with search capabilities; enhance patient detail and edit features." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -52,7 +52,7 @@ public class Ingredient {
     @Column(name = "allergen")
     private Set<Allergen> allergens = new HashSet<>();
 
-    @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "ingredient", fetch = FetchType.LAZY)
     private Set<RecipeIngredient> recipeIngredients = new HashSet<>();
 
     public Ingredient() {}

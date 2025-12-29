@@ -48,9 +48,12 @@
                 <VBox spacing="8">
                     <Label styleClass="form-label" text="Hora de la Consulta" />
                     <HBox spacing="10">
-                        <Spinner fx:id="hourSpinner" prefWidth="80" styleClass="form-control" />
-                        <Label styleClass="form-label" text=":" />
-                        <Spinner fx:id="minuteSpinner" prefWidth="80" styleClass="form-control" />
+                        <Spinner fx:id="hourSpinner" prefHeight="46.0" prefWidth="100.0" styleClass="form-control" />
+                        <Label styleClass="form-label" text=":">
+                     <HBox.margin>
+                        <Insets top="15.0" />
+                     </HBox.margin></Label>
+                        <Spinner fx:id="minuteSpinner" prefWidth="100.0" styleClass="form-control" />
                     </HBox>
                 </VBox>
             </VBox>
