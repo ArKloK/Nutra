@@ -104,7 +104,6 @@ public class ImageLoader {
 
     /**
      * Get a user-friendly error message for unsupported formats
-     * @param filePath The file path
      * @return Error message
      */
     public static String getUnsupportedFormatMessage() {

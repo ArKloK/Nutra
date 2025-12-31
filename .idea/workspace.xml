@@ -4,25 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dbc76a8a-6e3f-4cd6-b762-467a45439b9b" name="Changes" comment="Version 0.0.4-alpha.&#10;Implement CRUD functionality for ingredients and recipes; add ingredient and recipe list views with search capabilities; enhance patient detail and edit features. Added recipe details view.">
-      <change afterPath="$PROJECT_DIR$/.mvn/jvm.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/ConsultationDetailController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/helpers/ImageLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/consultation_detail.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/ConsultationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/ConsultationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/PatientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/PatientController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/PatientDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/PatientDetailController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/PatientListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/PatientListController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/RecipeListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/controllers/RecipeListController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/services/ConsultationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arklok/nutra/services/ConsultationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/home.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/home.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/patient_detail.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/patient_detail.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/styles/styles.css" afterDir="false" />
-    </list>
+    <list default="true" id="dbc76a8a-6e3f-4cd6-b762-467a45439b9b" name="Changes" comment="Version 0.0.5-alpha. Suppressed warnings" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -69,7 +51,7 @@
     <urls />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="Security Analysis" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -172,7 +154,7 @@
       <workItem from="1765643362017" duration="4379000" />
       <workItem from="1767004164183" duration="95000" />
       <workItem from="1767004318720" duration="8408000" />
-      <workItem from="1767180025154" duration="6670000" />
+      <workItem from="1767180025154" duration="7180000" />
     </task>
     <task id="LOCAL-00001" summary="Setting up application">
       <option name="closed" value="true" />
@@ -246,7 +228,23 @@
       <option name="project" value="LOCAL" />
       <updated>1767013236081</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Version 0.0.5-alpha.&#10;Enhance image handling and consultation detail view&#10;&#10;- Added ImageLoader helper class for robust image loading and validation&#10;- Implemented format validation for patient photo selection in PatientController&#10;- Improved error handling and logging for image loading in PatientDetailController&#10;- Created ConsultationDetailController for displaying consultation details&#10;- Updated FXML files for consultation detail view and modified existing views for better image handling&#10;- Enhanced user feedback for unsupported image formats">
+      <option name="closed" value="true" />
+      <created>1767189469879</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1767189469879</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Version 0.0.5-alpha. Suppressed warnings">
+      <option name="closed" value="true" />
+      <created>1767189641786</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1767189641786</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -265,7 +263,9 @@
     <MESSAGE value="- Add persistence layer (repositories and services for consultations and patients)&#10;- Implement interactive calendar with right-click context menus&#10;- Create visual consultation cards with hover effects and deletion option&#10;- Integrate patient database save with field validations&#10;- Add hour/minute spinners to consultation form&#10;- Implement custom styles for context menus (new consultation and delete)&#10;- Fix card width overflow and event propagation issues&#10;- Update CHANGELOG with all modifications" />
     <MESSAGE value="Version 0.0.4-alpha.&#10;Implement CRUD functionality for ingredients and recipes; add ingredient and recipe list views with search capabilities; enhance patient detail and edit features." />
     <MESSAGE value="Version 0.0.4-alpha.&#10;Implement CRUD functionality for ingredients and recipes; add ingredient and recipe list views with search capabilities; enhance patient detail and edit features. Added recipe details view." />
-    <option name="LAST_COMMIT_MESSAGE" value="Version 0.0.4-alpha.&#10;Implement CRUD functionality for ingredients and recipes; add ingredient and recipe list views with search capabilities; enhance patient detail and edit features. Added recipe details view." />
+    <MESSAGE value="Version 0.0.5-alpha.&#10;Enhance image handling and consultation detail view&#10;&#10;- Added ImageLoader helper class for robust image loading and validation&#10;- Implemented format validation for patient photo selection in PatientController&#10;- Improved error handling and logging for image loading in PatientDetailController&#10;- Created ConsultationDetailController for displaying consultation details&#10;- Updated FXML files for consultation detail view and modified existing views for better image handling&#10;- Enhanced user feedback for unsupported image formats" />
+    <MESSAGE value="Version 0.0.5-alpha. Suppressed warnings" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version 0.0.5-alpha. Suppressed warnings" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

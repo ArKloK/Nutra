@@ -652,9 +652,7 @@ public class HomeController {
 
         MenuItem addConsultationItem = new MenuItem("Nueva Consulta");
         addConsultationItem.getStyleClass().add("menu-item-new-consultation");
-        addConsultationItem.setOnAction(_ -> {
-            showNewConsultation(date);
-        });
+        addConsultationItem.setOnAction(_ -> showNewConsultation(date));
 
         contextMenu.getItems().add(addConsultationItem);
 
