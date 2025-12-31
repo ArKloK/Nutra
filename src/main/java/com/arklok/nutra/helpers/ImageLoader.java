@@ -107,7 +107,7 @@ public class ImageLoader {
      * @param filePath The file path
      * @return Error message
      */
-    public static String getUnsupportedFormatMessage(String filePath) {
+    public static String getUnsupportedFormatMessage() {
         return """
                 El formato de imagen no es compatible.
                 

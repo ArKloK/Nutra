@@ -262,7 +262,7 @@ public class PatientDetailController implements IController {
     public void editPatient() {
         log.info("Edit patient button clicked for: {} {}", currentPatient.getFirstName(), currentPatient.getLastName());
         if (homeController != null && currentPatient != null) {
-            homeController.showEditPatient(currentPatient, this);
+            homeController.showEditPatient(currentPatient);
         } else {
             log.error("Cannot edit patient: homeController or currentPatient is null");
         }

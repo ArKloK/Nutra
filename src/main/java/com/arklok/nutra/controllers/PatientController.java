@@ -161,7 +161,7 @@ public class PatientController implements IController {
             // Validate image format
             if (!ImageLoader.isSupportedFormat(file.getAbsolutePath())) {
                 showAlert(Alert.AlertType.WARNING, "Formato no soportado",
-                        ImageLoader.getUnsupportedFormatMessage(file.getAbsolutePath()));
+                        ImageLoader.getUnsupportedFormatMessage());
                 return;
             }
             photoPathField.setText(file.getAbsolutePath());

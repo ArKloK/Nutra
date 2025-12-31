@@ -114,7 +114,6 @@ public class HomeController {
     private final ConsultationService consultationService;
 
     private LocalDate currentWeekStart;
-    private LocalDate selectedDateForNewConsultation;
     private Map<LocalDate, VBox> dayContainers;
     private ContextMenu currentContextMenu;
 
@@ -169,14 +168,6 @@ public class HomeController {
         currentWeekStart = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         animateWeekTransition(false);
         loadConsultationsForWeek();
-    }
-
-    /**
-     * Show the new consultation form
-     */
-    @FXML
-    public void showNewConsultation() {
-        showNewConsultation(null);
     }
 
     /**
@@ -238,7 +229,7 @@ public class HomeController {
     /**
      * Show the edit patient form
      */
-    public void showEditPatient(com.arklok.nutra.models.Patient patient, PatientDetailController patientDetailController) {
+    public void showEditPatient(com.arklok.nutra.models.Patient patient) {
         try {
             log.info("Loading edit patient form for: {} {}", patient.getFirstName(), patient.getLastName());
             // Reload patient view to get a fresh form
@@ -356,7 +347,7 @@ public class HomeController {
         try {
             // Load recipe view if not already loaded
             recipeView.getChildren().clear();
-            AddContentToView("/fxml/recipe.fxml", recipeView);
+            AddContentToView(recipeView);
 
             // Switch views with fade transition
             switchToView(recipeView);
@@ -559,8 +550,8 @@ public class HomeController {
         fadeOut.play();
     }
 
-    private void AddContentToView(String fxmlPath, VBox view) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+    private void AddContentToView(VBox view) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/recipe.fxml"));
         loader.setControllerFactory(applicationContext::getBean);
         VBox patientContent = loader.load();
 
@@ -662,7 +653,6 @@ public class HomeController {
         MenuItem addConsultationItem = new MenuItem("Nueva Consulta");
         addConsultationItem.getStyleClass().add("menu-item-new-consultation");
         addConsultationItem.setOnAction(_ -> {
-            selectedDateForNewConsultation = date;
             showNewConsultation(date);
         });
 
