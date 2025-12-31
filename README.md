@@ -6,8 +6,12 @@ Nutra is a desktop application designed for client management, specifically tail
 
 The following are the most relevant libraries and plugins used in this project, along with their exact versions as specified in the `pom.xml`:
 
+- **Java**: 25
 - **Spring Boot**: 3.5.6
-- **Java version (java.version property)**: 25
+- **JavaFX**: 23.0.1
+- **Logback**: 1.5.13 (security patched)
+- **Hibernate**: 6.6.29.Final
+- **SQLite JDBC**: 3.41.2.2
 
 These versions ensure compatibility and stability for the application. For further details, see the `pom.xml` file.
 
@@ -64,7 +68,26 @@ Follow these steps to run the project after cloning the repository:
 - The application is intended for desktop environments.
 - Data is stored locally in an SQLite database, located in the user's directory.
 - JavaFX libraries must be properly configured in your environment to run the application.
-- If you encounter errors related to JavaFX runtime components, ensure you are using a JDK that includes JavaFX or configure the necessary JavaFX modules.
+
+### Known Warnings (Java 25 + JavaFX 23)
+
+When running with Java 25, you may see warnings about `sun.misc.Unsafe::allocateMemory`. This is a **known issue** with JavaFX 23 and is completely safe to ignore:
+
+- ✅ **Safe to ignore**: Does not affect functionality
+- ✅ **Temporary**: Will be fixed in future JavaFX versions
+- ✅ **Expected behavior**: JavaFX uses low-level APIs for graphics rendering
+
+**To run without warnings (IntelliJ IDEA)**:
+1. Run → Edit Configurations...
+2. Add to VM options: `-XX:+UnlockDiagnosticVMOptions -XX:+SuppressTerminallyDeprecatedWarnings`
+
+**To run without warnings (Maven)**:
+```bash
+# Already configured in pom.xml, just run:
+mvnw.cmd spring-boot:run
+```
+
+For more details, see `CONFIGURACION_INTELLIJ.md`.
 
 ## License
 

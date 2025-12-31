@@ -1,6 +1,7 @@
 package com.arklok.nutra.controllers;
 
 import com.arklok.nutra.constants.UIConstants;
+import com.arklok.nutra.helpers.ImageLoader;
 import com.arklok.nutra.interfaces.IController;
 import com.arklok.nutra.models.Consultation;
 import com.arklok.nutra.models.Patient;
@@ -158,27 +159,53 @@ public class PatientDetailController implements IController {
      */
     private void loadPatientPhoto() {
         if (currentPatient.getPhotoPath() != null && !currentPatient.getPhotoPath().isEmpty()) {
-            File photoFile = new File(currentPatient.getPhotoPath());
-            if (photoFile.exists()) {
-                try {
-                    Image image = new Image(photoFile.toURI().toString());
-                    patientPhoto.setImage(image);
-                    patientPhoto.setStyle("-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2); -fx-background-radius: 8px;");
-                    return;
-                } catch (Exception e) {
-                    log.error("Error loading patient photo", e);
-                }
+            log.info("Attempting to load photo from: {}", currentPatient.getPhotoPath());
+
+            Image image = ImageLoader.loadImage(currentPatient.getPhotoPath());
+
+            if (image != null) {
+                patientPhoto.setImage(image);
+
+                // Configure ImageView
+                patientPhoto.setFitWidth(200);
+                patientPhoto.setFitHeight(200);
+                patientPhoto.setPreserveRatio(false);
+                patientPhoto.setSmooth(true);
+                patientPhoto.setCache(true);
+
+                // Create rounded rectangle clip for the image
+                Rectangle clip = new Rectangle(200, 200);
+                clip.setArcWidth(16);
+                clip.setArcHeight(16);
+                patientPhoto.setClip(clip);
+
+                // Apply shadow effect
+                patientPhoto.setStyle("-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);");
+
+                log.info("Patient photo loaded and displayed successfully");
+                return;
             }
         }
 
-        // Show black placeholder if no photo
+        // Show black placeholder if no photo or error
+        log.info("Showing placeholder for patient photo");
+        showPlaceholder();
+    }
+
+    /**
+     * Show black placeholder when no photo is available
+     */
+    private void showPlaceholder() {
         patientPhoto.setImage(null);
+        patientPhoto.setFitWidth(200);
+        patientPhoto.setFitHeight(200);
+
         Rectangle placeholder = new Rectangle(200, 200);
         placeholder.setFill(Color.web("#000000"));
-        placeholder.setArcWidth(8);
-        placeholder.setArcHeight(8);
+        placeholder.setArcWidth(16);
+        placeholder.setArcHeight(16);
         patientPhoto.setClip(placeholder);
-        patientPhoto.setStyle("-fx-background-color: #000000; -fx-background-radius: 8px;");
+        patientPhoto.setStyle("-fx-background-color: #000000; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);");
     }
 
     /**

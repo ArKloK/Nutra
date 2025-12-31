@@ -33,7 +33,7 @@
             <!-- Photo and Basic Info Section -->
             <HBox spacing="30" styleClass="form-section">
                 <VBox alignment="TOP_CENTER" spacing="10">
-                    <ImageView fx:id="patientPhoto" fitHeight="200" fitWidth="200" preserveRatio="true" styleClass="patient-photo" />
+                    <ImageView fx:id="patientPhoto" fitHeight="200" fitWidth="200" styleClass="patient-photo" />
                 </VBox>
 
                 <VBox spacing="15" HBox.hgrow="ALWAYS">

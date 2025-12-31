@@ -46,7 +46,7 @@ public class RecipeListController implements IController {
         loadRecipes();
 
         // Setup search filter
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> filterRecipes(newValue));
+        searchField.textProperty().addListener((_, _, newValue) -> filterRecipes(newValue));
     }
 
     public void setHomeController(HomeController homeController) {
@@ -173,18 +173,7 @@ public class RecipeListController implements IController {
      * Create an info row with label and value
      */
     private HBox createInfoRow(String label, String value) {
-        HBox row = new HBox(10);
-        row.setAlignment(Pos.CENTER_LEFT);
-
-        Text labelText = new Text(label);
-        labelText.setStyle("-fx-font-size: 13px; -fx-font-weight: bold; -fx-fill: " + UIConstants.COLOR_PRIMARY + ";");
-
-        Text valueText = new Text(value);
-        valueText.setStyle("-fx-font-size: 13px; -fx-fill: " + UIConstants.COLOR_PRIMARY + ";");
-
-        row.getChildren().addAll(labelText, valueText);
-
-        return row;
+        return IngredientListController.gethBox(label, value);
     }
 
     /**

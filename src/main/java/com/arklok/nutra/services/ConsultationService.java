@@ -36,6 +36,20 @@ public class ConsultationService {
     }
 
     /**
+     * Find a consultation by id with patient eagerly loaded
+     */
+    @Transactional(readOnly = true)
+    public Optional<Consultation> findByIdWithPatient(Long id) {
+        Optional<Consultation> consultationOpt = consultationRepository.findById(id);
+        consultationOpt.ifPresent(consultation -> {
+            // Force initialization of patient proxy within transaction
+            //noinspection ResultOfMethodCallIgnored
+            consultation.getPatient().getFirstName(); // Access to force loading
+        });
+        return consultationOpt;
+    }
+
+    /**
      * Find all consultations
      */
     public List<Consultation> findAll() {

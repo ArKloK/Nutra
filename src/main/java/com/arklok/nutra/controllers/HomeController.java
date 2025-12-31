@@ -65,6 +65,8 @@ public class HomeController {
     @FXML
     public VBox consultationView;
     @FXML
+    public VBox consultationDetailView;
+    @FXML
     public VBox patientView;
     @FXML
     public VBox patientListView;
@@ -529,6 +531,8 @@ public class HomeController {
             currentView = calendarView;
         } else if (consultationView.isVisible()) {
             currentView = consultationView;
+        } else if (consultationDetailView.isVisible()) {
+            currentView = consultationDetailView;
         } else if (patientView.isVisible()) {
             currentView = patientView;
         } else if (patientListView.isVisible()) {
@@ -782,8 +786,90 @@ public class HomeController {
      * View/edit a consultation
      */
     private void viewConsultation(Consultation consultation) {
-        // TODO: Implement view/edit consultation
-        log.info("Viewing consultation: {}", consultation.getId());
+        try {
+            log.info("Loading consultation details: {}", consultation.getId());
+
+            // Reload consultation with patient eagerly loaded to avoid LazyInitializationException
+            Consultation consultationWithPatient = consultationService.findByIdWithPatient(consultation.getId())
+                .orElseThrow(() -> new RuntimeException("Consultation not found"));
+
+            // Load consultation detail view
+            consultationDetailView.getChildren().clear();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/consultation_detail.fxml"));
+            loader.setControllerFactory(applicationContext::getBean);
+            VBox detailContent = loader.load();
+
+            // Get the controller and set reference to this controller
+            ConsultationDetailController controller = loader.getController();
+            controller.setHomeController(this);
+            controller.setConsultation(consultationWithPatient);
+
+            // Add content to view
+            consultationDetailView.getChildren().add(detailContent);
+
+            // Switch views with fade transition
+            switchToView(consultationDetailView);
+        } catch (IOException e) {
+            log.error("Error loading consultation detail view", e);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error al cargar la consulta");
+            alert.setContentText("No se pudo cargar la vista de detalle de la consulta.");
+            alert.showAndWait();
+        } catch (Exception e) {
+            log.error("Error loading consultation", e);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error al cargar la consulta");
+            alert.setContentText("No se pudo cargar la consulta: " + e.getMessage());
+            alert.showAndWait();
+        }
+    }
+
+    /**
+     * Show edit consultation form
+     */
+    public void showEditConsultation(Consultation consultation) {
+        try {
+            log.info("Loading consultation for editing: {}", consultation.getId());
+
+            // Reload consultation with patient eagerly loaded to avoid LazyInitializationException
+            Consultation consultationWithPatient = consultationService.findByIdWithPatient(consultation.getId())
+                .orElseThrow(() -> new RuntimeException("Consultation not found"));
+
+            // Reload consultation view to get a fresh form
+            consultationView.getChildren().clear();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/consultation.fxml"));
+            loader.setControllerFactory(applicationContext::getBean);
+            VBox consultationContent = loader.load();
+
+            // Get the controller and set reference to this controller
+            ConsultationController controller = loader.getController();
+            controller.setHomeController(this);
+
+            // Set the consultation for editing (with patient loaded)
+            controller.setConsultationForEdit(consultationWithPatient);
+
+            // Add content to view
+            consultationView.getChildren().add(consultationContent);
+
+            // Switch views with fade transition
+            switchToView(consultationView);
+        } catch (IOException e) {
+            log.error("Error loading consultation edit form", e);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error al cargar el formulario");
+            alert.setContentText("No se pudo cargar el formulario de edición de la consulta.");
+            alert.showAndWait();
+        } catch (Exception e) {
+            log.error("Error loading consultation for editing", e);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error al cargar la consulta");
+            alert.setContentText("No se pudo cargar la consulta para editar: " + e.getMessage());
+            alert.showAndWait();
+        }
     }
 
     /**

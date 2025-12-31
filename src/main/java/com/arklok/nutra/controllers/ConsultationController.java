@@ -1,6 +1,5 @@
 package com.arklok.nutra.controllers;
 
-import com.arklok.nutra.helpers.ControllersHelper;
 import com.arklok.nutra.interfaces.IController;
 import com.arklok.nutra.models.Consultation;
 import com.arklok.nutra.models.Patient;
@@ -44,6 +43,7 @@ public class ConsultationController implements IController {
     private HomeController homeController;
     private final ConsultationService consultationService;
     private final PatientService patientService;
+    private Consultation currentConsultation; // For edit mode
 
     public ConsultationController(ConsultationService consultationService, PatientService patientService) {
         this.consultationService = consultationService;
@@ -124,6 +124,40 @@ public class ConsultationController implements IController {
     }
 
     /**
+     * Set an existing consultation for editing
+     */
+    public void setConsultationForEdit(Consultation consultation) {
+        this.currentConsultation = consultation;
+
+        // Load consultation data into form fields
+        if (consultation != null) {
+            // Set patient
+            patientComboBox.setValue(consultation.getPatient());
+
+            // Set date and time
+            LocalDateTime dateTime = consultation.getDateTime();
+            consultationDatePicker.setValue(dateTime.toLocalDate());
+
+            if (hourSpinner != null) {
+                hourSpinner.getValueFactory().setValue(dateTime.getHour());
+            }
+
+            if (minuteSpinner != null) {
+                minuteSpinner.getValueFactory().setValue(dateTime.getMinute());
+            }
+
+            // Set weight
+            if (consultation.getWeight() != null) {
+                weightField.setText(String.valueOf(consultation.getWeight()));
+            }
+
+            // Set reason and notes
+            reasonArea.setText(consultation.getReason());
+            notesArea.setText(consultation.getNotes() != null ? consultation.getNotes() : "");
+        }
+    }
+
+    /**
      * Go back to calendar view
      */
     @FXML
@@ -155,8 +189,9 @@ public class ConsultationController implements IController {
         }
 
         try {
-            // Create consultation object
-            Consultation consultation = new Consultation();
+            // Use existing consultation if in edit mode, otherwise create new one
+            Consultation consultation = currentConsultation != null ? currentConsultation : new Consultation();
+
             consultation.setPatient(patientComboBox.getValue());
 
             // Set date and time
@@ -178,12 +213,15 @@ public class ConsultationController implements IController {
                     showAlert(Alert.AlertType.ERROR, "Error", "El peso debe ser un número válido");
                     return;
                 }
+            } else {
+                consultation.setWeight(null);
             }
 
             // Save consultation to database
             consultationService.save(consultation);
 
-            showAlert(Alert.AlertType.INFORMATION, "Éxito", "Consulta guardada correctamente");
+            String message = currentConsultation != null ? "Consulta actualizada correctamente" : "Consulta guardada correctamente";
+            showAlert(Alert.AlertType.INFORMATION, "Éxito", message);
 
             // Reload consultations in home controller
             if (homeController != null) {

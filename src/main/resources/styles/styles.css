@@ -4,11 +4,6 @@
     -fx-font-size: 14px;
 }
 
-/* Main container styles */
-.anchor-pane {
-    -fx-background-color: #f5f5f5;
-}
-
 /* ========== MAIN SCREEN (HOME) ========== */
 
 /* Home page root */
@@ -581,52 +576,6 @@
     -fx-background-color: #8a6549;
 }
 
-/* ========== CUSTOM ALERTS AND DIALOGS ========== */
-
-.custom-alert {
-    -fx-background-color: #CDCDC0;
-}
-
-.custom-alert .header-panel {
-    -fx-background-color: #626D71;
-}
-
-.custom-alert .header-panel .label {
-    -fx-text-fill: #CDCDC0;
-    -fx-font-size: 16px;
-    -fx-font-weight: 500;
-}
-
-.custom-alert .content {
-    -fx-background-color: #CDCDC0;
-    -fx-padding: 20;
-}
-
-.custom-alert .content .label {
-    -fx-text-fill: #626D71;
-    -fx-font-size: 14px;
-}
-
-.custom-alert .button {
-    -fx-background-color: #626D71;
-    -fx-text-fill: #CDCDC0;
-    -fx-font-size: 13px;
-    -fx-padding: 8 20 8 20;
-    -fx-cursor: hand;
-    -fx-background-radius: 4px;
-}
-
-.custom-alert .button:hover {
-    -fx-background-color: #7a8589;
-}
-
-.custom-alert .button:default {
-    -fx-background-color: #B38867;
-}
-
-.custom-alert .button:default:hover {
-    -fx-background-color: #9a7559;
-}
 
 /* ========== PATIENT CARD ========== */
 
@@ -650,10 +599,6 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);
 }
 
-.patient-photo-placeholder {
-    -fx-background-color: #000000;
-    -fx-background-radius: 8px;
-}
 
 /* Detail labels and values */
 .detail-label {

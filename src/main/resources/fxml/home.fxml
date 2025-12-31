@@ -155,6 +155,9 @@
             <!-- Consultation View (loaded dynamically) -->
             <VBox fx:id="consultationView" managed="false" visible="false" />
 
+            <!-- Consultation Detail View (loaded dynamically) -->
+            <VBox fx:id="consultationDetailView" managed="false" visible="false" />
+
             <!-- Patient View (loaded dynamically) -->
             <VBox fx:id="patientView" managed="false" visible="false" />
 

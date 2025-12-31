@@ -10,6 +10,82 @@ All notable changes to this project will be documented in this file.
 
 <div class="version-header">
 
+## [v0.0.5-alpha] - 2025-12-31
+
+</div>
+
+<div class="section-header">
+
+### Added
+
+</div>
+
+- **ImageLoader Helper Class**: New utility class for robust image loading and validation
+  - Format validation for JavaFX-compatible image formats (PNG, JPG, JPEG, GIF, BMP)
+  - `loadImage()` method with comprehensive error handling and detailed logging
+  - `isSupportedFormat()` method to check if a file format is supported
+  - `getUnsupportedFormatMessage()` method providing user-friendly error messages
+  - Clear messaging that WebP format is NOT supported by JavaFX
+  - FileInputStream-based loading for better error detection
+  - Image dimensions logging for successful loads
+
+<div class="section-header">
+
+### Changed
+
+</div>
+
+- **PatientController Image Validation**: Enhanced photo selection with format validation
+  - Added `ImageLoader` import and usage in `browsePhoto()` method
+  - File format validation before accepting selected photos
+  - Alert dialog shown when unsupported format is selected
+  - Updated FileChooser filter title to "Imágenes compatibles" for clarity
+  - Prevents saving of incompatible image formats (e.g., WebP)
+- **PatientDetailController Image Loading**: Improved error handling for patient photos
+  - Refactored `loadPatientPhoto()` to use `ImageLoader` helper
+  - Simplified code with centralized image loading logic
+  - Enhanced logging with detailed path and error information
+  - Graceful fallback to placeholder when image loading fails
+  - Removed duplicate error handling code
+- **PatientListController Image Loading**: Consistent image handling in patient list cards
+  - Refactored `createPhotoContainer()` to use `ImageLoader` helper
+  - Removed unused `File` import
+  - Consistent error handling across all views
+  - Detailed logging for debugging image issues
+  - Better null-safety for photo paths
+
+<div class="section-header">
+
+### Fixed
+
+</div>
+
+- **WebP Image Support Issue**: Documented and handled JavaFX limitation with WebP format
+  - JavaFX does NOT support WebP images (only PNG, JPG, JPEG, GIF, BMP)
+  - Users now receive clear error messages when attempting to use WebP
+  - Application no longer fails silently when loading incompatible formats
+  - Added validation to prevent unsupported formats from being selected
+- **Image Loading Error Messages**: Improved error reporting and user feedback
+  - Detailed stack traces logged for debugging purposes
+  - User-friendly alerts shown for format incompatibility
+  - Console logs now include image URI, dimensions, and error details
+  - Better distinction between "file not found" vs "format unsupported" errors
+
+<div class="section-header">
+
+### Technical Notes
+
+</div>
+
+- **Supported Image Formats**: PNG, JPG, JPEG, GIF, BMP
+- **Unsupported Formats**: WebP, TIFF, SVG, and other modern formats
+- **Recommendation**: Convert WebP images to PNG or JPG before importing
+- **Tools for Conversion**: Online converters like convertio.co or CloudConvert
+
+---
+
+<div class="version-header">
+
 ## [v0.0.4-alpha] - 2025-12-29
 
 </div>

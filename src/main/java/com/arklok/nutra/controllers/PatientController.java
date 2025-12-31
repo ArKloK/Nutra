@@ -1,5 +1,6 @@
 package com.arklok.nutra.controllers;
 
+import com.arklok.nutra.helpers.ImageLoader;
 import com.arklok.nutra.interfaces.IController;
 import com.arklok.nutra.models.Patient;
 import com.arklok.nutra.services.PatientService;
@@ -151,12 +152,18 @@ public class PatientController implements IController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleccionar Foto del Paciente");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp"),
+                new FileChooser.ExtensionFilter("Imágenes compatibles", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp"),
                 new FileChooser.ExtensionFilter("Todos los archivos", "*.*")
         );
 
         File file = fileChooser.showOpenDialog(photoPathField.getScene().getWindow());
         if (file != null) {
+            // Validate image format
+            if (!ImageLoader.isSupportedFormat(file.getAbsolutePath())) {
+                showAlert(Alert.AlertType.WARNING, "Formato no soportado",
+                        ImageLoader.getUnsupportedFormatMessage(file.getAbsolutePath()));
+                return;
+            }
             photoPathField.setText(file.getAbsolutePath());
         }
     }

@@ -1,6 +1,7 @@
 package com.arklok.nutra.controllers;
 
 import com.arklok.nutra.constants.UIConstants;
+import com.arklok.nutra.helpers.ImageLoader;
 import com.arklok.nutra.interfaces.IController;
 import com.arklok.nutra.models.Patient;
 import com.arklok.nutra.services.PatientService;
@@ -19,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -52,7 +52,7 @@ public class PatientListController implements IController {
         loadPatients();
 
         // Setup search filter
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> filterPatients(newValue));
+        searchField.textProperty().addListener((_, _, newValue) -> filterPatients(newValue));
     }
 
     public void setHomeController(HomeController homeController) {
@@ -207,26 +207,27 @@ public class PatientListController implements IController {
         photoContainer.setMaxSize(100, 100);
 
         if (patient.getPhotoPath() != null && !patient.getPhotoPath().isEmpty()) {
-            File photoFile = new File(patient.getPhotoPath());
-            if (photoFile.exists()) {
-                try {
-                    Image image = new Image(photoFile.toURI().toString());
-                    ImageView imageView = new ImageView(image);
-                    imageView.setFitWidth(100);
-                    imageView.setFitHeight(100);
-                    imageView.setPreserveRatio(true);
+            log.info("Attempting to load patient list photo from: {}", patient.getPhotoPath());
 
-                    Rectangle clip = new Rectangle(100, 100);
-                    clip.setArcWidth(8);
-                    clip.setArcHeight(8);
-                    imageView.setClip(clip);
+            Image image = ImageLoader.loadImage(patient.getPhotoPath());
 
-                    photoContainer.getChildren().add(imageView);
-                    photoContainer.setStyle("-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 1);");
-                    return photoContainer;
-                } catch (Exception e) {
-                    log.error("Error loading patient photo", e);
-                }
+            if (image != null) {
+                ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(100);
+                imageView.setFitHeight(100);
+                imageView.setPreserveRatio(false);
+                imageView.setSmooth(true);
+                imageView.setCache(true);
+
+                Rectangle clip = new Rectangle(100, 100);
+                clip.setArcWidth(8);
+                clip.setArcHeight(8);
+                imageView.setClip(clip);
+
+                photoContainer.getChildren().add(imageView);
+                photoContainer.setStyle("-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 1);");
+                log.info("Patient list photo loaded successfully");
+                return photoContainer;
             }
         }
 
