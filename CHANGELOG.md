@@ -7,6 +7,19 @@
 All notable changes to this project will be documented in this file.
 
 ---
+<div class="version-header">
+
+## [v0.0.6-alpha] - 2026-01-03
+
+</div>
+
+<div class="section-header">
+
+### Changed
+
+</div>
+
+- Removed hardcoded fxml paths and replaced with constants from `UIConstants`.
 
 <div class="version-header">
 

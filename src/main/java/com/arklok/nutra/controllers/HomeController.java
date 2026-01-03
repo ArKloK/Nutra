@@ -1,5 +1,6 @@
 package com.arklok.nutra.controllers;
 
+import com.arklok.nutra.constants.UIConstants;
 import com.arklok.nutra.helpers.UIHelper;
 import com.arklok.nutra.interfaces.IController;
 import com.arklok.nutra.models.Consultation;
@@ -177,7 +178,7 @@ public class HomeController {
         try {
             // Reload consultation view to get a fresh form
             consultationView.getChildren().clear();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/consultation.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(UIConstants.CONSULTATION_VIEW_PATH));
             loader.setControllerFactory(applicationContext::getBean);
             VBox consultationContent = loader.load();
 
@@ -208,7 +209,7 @@ public class HomeController {
         try {
             // Reload patient view to get a fresh form
             patientView.getChildren().clear();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patient.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(UIConstants.PATIENT_VIEW_PATH));
             loader.setControllerFactory(applicationContext::getBean);
             VBox patientContent = loader.load();
 
@@ -234,7 +235,7 @@ public class HomeController {
             log.info("Loading edit patient form for: {} {}", patient.getFirstName(), patient.getLastName());
             // Reload patient view to get a fresh form
             patientView.getChildren().clear();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patient.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(UIConstants.PATIENT_VIEW_PATH));
             loader.setControllerFactory(applicationContext::getBean);
             VBox patientContent = loader.load();
 
@@ -263,7 +264,7 @@ public class HomeController {
             log.info("Loading patient list view...");
             // Reload patient list view to refresh data
             patientListView.getChildren().clear();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patient_list.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(UIConstants.PATIENT_LIST_VIEW_PATH));
             loader.setControllerFactory(applicationContext::getBean);
             VBox patientListContent = loader.load();
 
@@ -291,7 +292,7 @@ public class HomeController {
             log.info("Loading ingredient list view...");
             // Reload ingredient list view to refresh data
             ingredientListView.getChildren().clear();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ingredient_list.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(UIConstants.INGREDIENT_LIST_VIEW_PATH));
             loader.setControllerFactory(applicationContext::getBean);
             VBox ingredientListContent = loader.load();
 
@@ -318,7 +319,7 @@ public class HomeController {
             log.info("Loading patient detail view for patient: {} {}", patient.getFirstName(), patient.getLastName());
             // Reload patient detail view
             patientDetailView.getChildren().clear();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/patient_detail.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(UIConstants.PATIENT_DETAIL_VIEW_PATH));
             loader.setControllerFactory(applicationContext::getBean);
             VBox patientDetailContent = loader.load();
 
@@ -365,7 +366,7 @@ public class HomeController {
             log.info("Loading recipe list view...");
             // Reload recipe list view to refresh data
             recipeListView.getChildren().clear();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/recipe_list.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(UIConstants.RECIPE_LIST_VIEW_PATH));
             loader.setControllerFactory(applicationContext::getBean);
             VBox recipeListContent = loader.load();
 
@@ -392,7 +393,7 @@ public class HomeController {
             log.info("Loading recipe edit view for recipe: {}", recipe.getTitle());
             // Reload recipe view
             recipeView.getChildren().clear();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/recipe.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(UIConstants.RECIPE_VIEW_PATH));
             loader.setControllerFactory(applicationContext::getBean);
             VBox recipeContent = loader.load();
 
@@ -420,7 +421,7 @@ public class HomeController {
             log.info("Loading recipe detail view for recipe: {}", recipe.getTitle());
             // Reload recipe detail view
             recipeDetailView.getChildren().clear();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/recipe_detail.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(UIConstants.RECIPE_DETAIL_VIEW_PATH));
             loader.setControllerFactory(applicationContext::getBean);
             VBox recipeDetailContent = loader.load();
 
@@ -551,7 +552,7 @@ public class HomeController {
     }
 
     private void AddContentToView(VBox view) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/recipe.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(UIConstants.RECIPE_VIEW_PATH));
         loader.setControllerFactory(applicationContext::getBean);
         VBox patientContent = loader.load();
 
@@ -783,7 +784,7 @@ public class HomeController {
 
             // Load consultation detail view
             consultationDetailView.getChildren().clear();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/consultation_detail.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(UIConstants.CONSULTATION_DETAIL_VIEW_PATH));
             loader.setControllerFactory(applicationContext::getBean);
             VBox detailContent = loader.load();
 
@@ -827,7 +828,7 @@ public class HomeController {
 
             // Reload consultation view to get a fresh form
             consultationView.getChildren().clear();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/consultation.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(UIConstants.CONSULTATION_VIEW_PATH));
             loader.setControllerFactory(applicationContext::getBean);
             VBox consultationContent = loader.load();
 

@@ -1,5 +1,6 @@
 package com.arklok.nutra.controllers;
 
+import com.arklok.nutra.constants.UIConstants;
 import com.arklok.nutra.interfaces.IController;
 import com.arklok.nutra.models.Ingredient;
 import com.arklok.nutra.models.Recipe;
@@ -187,7 +188,7 @@ public class RecipeController implements IController {
     @FXML
     public void createNewIngredient() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ingredient.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(UIConstants.INGREDIENT_VIEW_PATH));
             loader.setControllerFactory(applicationContext::getBean);
             Parent root = loader.load();
 

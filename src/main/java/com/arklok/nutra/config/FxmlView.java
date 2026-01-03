@@ -1,52 +1,19 @@
 package com.arklok.nutra.config;
 
-public enum FxmlView {
-    LOGIN {
-        @Override
-        public String getFxmlPath() {
-            return "/fxml/login.fxml";
-        }
-    },
+import com.arklok.nutra.constants.UIConstants;
 
+public enum FxmlView {
     LOAD {
         @Override
         public String getFxmlPath() {
-            return "/fxml/load.fxml";
+            return UIConstants.LOAD_VIEW_PATH;
         }
     },
 
     HOME {
         @Override
         public String getFxmlPath() {
-            return "/fxml/home.fxml";
-        }
-    },
-
-    SCALES {
-        @Override
-        public String getFxmlPath() {
-            return "/fxml/scales.fxml";
-        }
-    },
-
-    INTERVALS {
-        @Override
-        public String getFxmlPath() {
-            return "/fxml/intervals.fxml";
-        }
-    },
-
-    SCALES_THEORY {
-        @Override
-        public String getFxmlPath() {
-            return "/fxml/scales-theory.fxml";
-        }
-    },
-
-    INGREDIENT_LIST {
-        @Override
-        public String getFxmlPath() {
-            return "/fxml/ingredient_list.fxml";
+            return UIConstants.HOME_VIEW_PATH;
         }
     };
 

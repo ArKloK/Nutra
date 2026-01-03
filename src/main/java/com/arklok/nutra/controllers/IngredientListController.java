@@ -223,7 +223,7 @@ public class IngredientListController implements IController {
             Ingredient fullIngredient = ingredientService.findByIdWithDetails(ingredient.getId()).orElse(ingredient);
 
             // Load ingredient form
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ingredient.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(UIConstants.INGREDIENT_VIEW_PATH));
             loader.setControllerFactory(applicationContext::getBean);
             Parent root = loader.load();
             IngredientController controller = loader.getController();
@@ -284,7 +284,7 @@ public class IngredientListController implements IController {
 
         try {
             // Load ingredient form
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ingredient.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(UIConstants.INGREDIENT_VIEW_PATH));
             loader.setControllerFactory(applicationContext::getBean);
             Parent root = loader.load();
             IngredientController controller = loader.getController();
