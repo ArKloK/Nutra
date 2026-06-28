@@ -93,11 +93,13 @@
     </dependencies>
 
 	<build>
+		<finalName>nutra-${project.version}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<mainClass>com.arklok.nutra.NutraApplication</mainClass>
 					<jvmArguments>
 						-XX:+UnlockDiagnosticVMOptions
 						-XX:+SuppressTerminallyDeprecatedWarnings

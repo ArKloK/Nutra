@@ -7,7 +7,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
 public class NutraApplication{
-    static void main(String[] args) {
+    public static void main(String[] args) {
         ConfigurableApplicationContext ctx = new SpringApplicationBuilder(NutraFxApplication.class)
                 .headless(false)
                 .run(args);
