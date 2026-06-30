@@ -48,7 +48,7 @@ This architecture ensures scalability, maintainability, and a clear separation b
 Follow these steps to run the project after cloning the repository:
 
 1. **Clone the repository** to your computer.
-2. **Ensure you have Java installed** (Java 17 or higher is recommended).
+2. **Ensure you have Java installed** (Java 25 is required, matching the version in `pom.xml`).
 3. **No need to install Maven manually**. The project includes Maven Wrapper scripts:
    - On **Windows**, use `mvnw.cmd`.
    - On **Linux/macOS**, use `./mvnw`.
@@ -77,17 +77,14 @@ When running with Java 25, you may see warnings about `sun.misc.Unsafe::allocate
 - ✅ **Temporary**: Will be fixed in future JavaFX versions
 - ✅ **Expected behavior**: JavaFX uses low-level APIs for graphics rendering
 
-**To run without warnings (IntelliJ IDEA)**:
-1. Run → Edit Configurations...
-2. Add to VM options: `-XX:+UnlockDiagnosticVMOptions -XX:+SuppressTerminallyDeprecatedWarnings`
-
 **To run without warnings (Maven)**:
 ```bash
 # Already configured in pom.xml, just run:
 mvnw.cmd spring-boot:run
 ```
 
-For more details, see `CONFIGURACION_INTELLIJ.md`.
+To suppress them in an IDE, add these VM options to the run configuration:
+`-XX:+UnlockDiagnosticVMOptions -XX:+SuppressTerminallyDeprecatedWarnings`
 
 ## License
 
