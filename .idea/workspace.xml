@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dbc76a8a-6e3f-4cd6-b762-467a45439b9b" name="Changes" comment="Version 0.0.6-alpha. Removed hardcoded fxml paths and replaced with constants from `UIConstants`.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-    </list>
+    <list default="true" id="dbc76a8a-6e3f-4cd6-b762-467a45439b9b" name="Changes" comment="Created AGENTS.md and brief update in README.md" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,6 +20,7 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIEW_PUSH_PROTECTED_ONLY" value="true" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$/.." value="main" />
@@ -163,7 +161,7 @@
       <workItem from="1767442004790" duration="2136000" />
       <workItem from="1767523530331" duration="929000" />
       <workItem from="1767606889058" duration="339000" />
-      <workItem from="1782838042501" duration="89000" />
+      <workItem from="1782838042501" duration="806000" />
     </task>
     <task id="LOCAL-00001" summary="Setting up application">
       <option name="closed" value="true" />
@@ -269,7 +267,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767442409294</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Created AGENTS.md and brief update in README.md">
+      <option name="closed" value="true" />
+      <created>1782838189090</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1782838189090</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -291,7 +297,8 @@
     <MESSAGE value="Version 0.0.5-alpha.&#10;Enhance image handling and consultation detail view&#10;&#10;- Added ImageLoader helper class for robust image loading and validation&#10;- Implemented format validation for patient photo selection in PatientController&#10;- Improved error handling and logging for image loading in PatientDetailController&#10;- Created ConsultationDetailController for displaying consultation details&#10;- Updated FXML files for consultation detail view and modified existing views for better image handling&#10;- Enhanced user feedback for unsupported image formats" />
     <MESSAGE value="Version 0.0.5-alpha. Suppressed warnings" />
     <MESSAGE value="Version 0.0.6-alpha. Removed hardcoded fxml paths and replaced with constants from `UIConstants`." />
-    <option name="LAST_COMMIT_MESSAGE" value="Version 0.0.6-alpha. Removed hardcoded fxml paths and replaced with constants from `UIConstants`." />
+    <MESSAGE value="Created AGENTS.md and brief update in README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created AGENTS.md and brief update in README.md" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
